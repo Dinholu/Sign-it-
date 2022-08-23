@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('seals', function (Blueprint $table) {
             $table->id();
+            $table->string('path');
             $table->string('token');
             $table->string('sha1');
             $table->timestamps();

@@ -8,8 +8,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-use function Termwind\render;
-
 class SealController extends Controller
 {
     /**
@@ -19,7 +17,7 @@ class SealController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('hello');
     }
 
     /**
@@ -41,42 +39,36 @@ class SealController extends Controller
     public function store(Request $request)
     {
         $hello = Str::random($length = 15);
+        $path = request()->file('file')->store('pdf');
+        // return "done " . $path;
+
+
+        // $file = storage_path('app/' . $path);
+        $image = storage_path('app/encart.png');
 
         $pdf = new Fpdi();
         $pdf->AddPage();
-        $pdf->SetFont('Arial', 'B', 16);
-        $path = public_path('/hello.pdf');
-        $pdf->setSourceFile($path);
+        // $pdf->SetFont('Arial', 'B', 16);
+        $pdf->setSourceFile(storage_path('app/' . $path));
         $tplId = $pdf->importPage(1);
-        // use the imported page and place it at point 10,10 with a width of 100 mm
-        $pdf->useTemplate($tplId, null, null, null, 210, true);
-
-        // Now this details we are going to print in pdf.
-        // Horizontal and veritcal setXY
+        $size = $pdf->getTemplateSize($tplId);
+        $pdf->useTemplate($tplId, 1, 1, $size['width'], $size['height'], TRUE);
 
 
-        $pdf->SetXY(40, 40);
-        // Details you want to print
+        $xxx_final = ($size['width'] - 60);
+        $yyy_final = ($size['height'] - 20);
+        $pdf->Image($image, $xxx_final, $yyy_final, 40, 20, 'PNG');
+        $pdf->Output(storage_path('app/' . $path), "F");
 
-        // Now let's change details an position
-        $pdf->Write(0.1, "BBUniversal");
+        $fileHash = sha1_file(storage_path('app/' . $path));
 
-        // let's bring another below it
-
-        // Second details
-        $pdf->SetXY(40, 50);
-        $pdf->Write(0.1, "Thank you. If you have any doubt.");
-
-        $pdf->SetXY(40, 60);
-        $pdf->Write(0.1, "Feel free to comment.");
-        $pdf->Output(public_path("hello1.pdf"), "F");
-
-        $fileHash = sha1_file(public_path("hello.pdf"));
 
         Seal::create([
+            'path' => $path,
             'token' => $hello,
             'sha1' => $fileHash,
         ]);
+
 
         return Inertia::render('hello');
     }

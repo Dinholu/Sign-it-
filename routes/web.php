@@ -34,5 +34,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 # test pour pdf
-Route::get('/hello', [SealController::class, "store"]);
+Route::get('/hello', [SealController::class, "index"]);
+Route::post('/hello', [SealController::class, "store"]);
 require __DIR__ . '/auth.php';
