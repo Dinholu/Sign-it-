@@ -24,8 +24,6 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
 });
 
@@ -33,7 +31,15 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
 # test pour pdf
 Route::get('/hello', [SealController::class, "index"]);
 Route::post('/hello', [SealController::class, "store"]);
+
+
+#test svg
+Route::get('/svg', function () {
+    return Inertia::render('testsvg');
+});
 require __DIR__ . '/auth.php';
