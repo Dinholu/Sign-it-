@@ -20,11 +20,14 @@ const showingNavigationDropdown = ref(false);
                 <h1 class="mt-8 mb-12 text-5xl font-bold">Sign-it</h1>
             </Link>
             <div class="grow mt-16">
-                <ul class="space-y-16 text-xl text-left w-[65%] m-auto ">
+                <ul class="space-y-12 text-xl text-left w-[75%] m-auto ">
                         <li class="hover:text-[#137C8B] text-bold active:text-[#137C8B] focus:outline-none focus:border-[#137C8B] focus:shadow-outline-gray transition ease-in-out duration-150"><Link :href="route('dashboard')">
                             <font-awesome-icon icon="fa-solid fa-house" class="pr-12 text-2xl" />Vos réunion</Link></li>
                     <li class="hover:text-[#137C8B] active:text-[#137C8B] focus:outline-[#137C8B] focus:border- focus:shadow-outline-[#137C8B] transition ease-in-out duration-150"><Link :href="route('createmeeting')">
-                        <font-awesome-icon icon="fa-solid fa-folder-plus" class="pr-12 text-2xl"/>Ajouter une réunion</Link></li>
+                        <font-awesome-icon icon="fa-solid fa-handshake" class="pr-12 text-2xl"/>Ajouter une réunion</Link></li>
+                    <li class="hover:text-[#137C8B] active:text-[#137C8B] focus:outline-[#137C8B] focus:border- focus:shadow-outline-[#137C8B] transition ease-in-out duration-150"><Link :href="route('createmeeting')">
+                        <font-awesome-icon icon="fa-solid fa-file" class="pr-12 text-2xl"/>Vos documents</Link></li>
+
                     <li class="hover:text-[#137C8B] active:text-[#137C8B] focus:outline-none focus:border-[#137C8B] focus:shadow-outline-gray transition ease-in-out duration-150"><Link :href="route('dashboard')">
                         <font-awesome-icon icon="fa-solid fa-gear" class="pr-12 text-2xl"/>Réglages</Link></li>
                 </ul>

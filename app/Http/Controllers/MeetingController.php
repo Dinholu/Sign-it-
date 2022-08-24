@@ -15,7 +15,9 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        return Inertia::render('CreateMeeting');
+        return Inertia::render('Dashboard', [
+            'meetings' => Meeting::all(),
+        ]);
     }
 
     /**
@@ -25,7 +27,7 @@ class MeetingController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('CreateMeeting');
     }
 
     /**
@@ -36,6 +38,17 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->validate([
+            'title' => 'required|string|max:45',
+            'description' => 'required|string|max:255',
+            'place' => 'required|string|max:255',
+            'date' => 'required',
+            'closing' => 'required',
+            'privilege' => 'required|string',
+        ]);
+        $meeting = Meeting::create($data);
+        dd($meeting);
+        return redirect()->route('dashboard');
     }
 
     /**
@@ -46,7 +59,6 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
-        //
     }
 
     /**

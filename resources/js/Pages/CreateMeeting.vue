@@ -27,12 +27,12 @@
             <div class="mt-4 flex flex-row w-full justify-between">
                 <div class="w-[45%]">
                     <BreezeLabel for="date" value="Date de la réunion"/>
-                    <BreezeInput v-model="form.data" id="date" type="datetime-local" class="mt-1 block w-full" required autocomplete="DateMeeting" />
+                    <BreezeInput v-model="form.date" id="date" type="datetime-local" class="mt-1 block w-full" required autocomplete="DateMeeting" />
                     <BreezeInputError class="mt-2"/>
                     </div>
                 <div class="w-[45%]">
                     <BreezeLabel for="closing" value="Date de cloture"/>
-                    <BreezeInput v-model="form.closing" id="closing" type="closing" class="mt-1 block w-full" required autocomplete="DateClosing" />
+                    <BreezeInput v-model="form.closing" id="closing" type="date" class="mt-1 block w-full" required autocomplete="DateClosing" />
                     <BreezeInputError class="mt-2"/>
                 </div>
             </div>
@@ -50,7 +50,8 @@
                 </BreezeButton>
             </div>
             </form>
-        {{this.form.privilege}}
+            {{this.form.date}}
+            {{this.form.closing}}
         </div>
     </BreezeAuthenticatedLayout>
 </template>
@@ -77,9 +78,6 @@ export default {
         BreezeLabel,
         Datepicker
     },
-    mounted() {
-        console.log(this.form)
-    },
     data() {
         return {
             form: this.$inertia.form({
@@ -90,14 +88,18 @@ export default {
                 closing: null,
                 privilege:null
                 }),
-            date: null
+
         };
     },
 
     methods: {
         submit() {
             this.form.post("/createmeeting");
+            console.log("lets go");
+
         }
+    },
+    updated() {
     }
 }
 </script>

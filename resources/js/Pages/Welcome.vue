@@ -8,7 +8,8 @@
     <div class="bg-[#137C8B] w-full text-center flex flex-col ">
         <h1 class="text-white text-9xl mt-14 font-bold">Sign-it</h1>
         <p class="text-white text-3xl mt-8 m-5 grow">Votre application de gestion de réunions</p>
-        <!-- <h1 id="imageConn" class="text-[12vh] text-[#137C8B] text-bold mb-14 tracking-widest">CONNEXION</h1> -->
+
+        <h3 class="text-sm text-italic my-14 text-white"> Crée par T-Med</h3>
     </div>
     <HellosVG />
 </div>

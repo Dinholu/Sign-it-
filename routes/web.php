@@ -28,11 +28,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [MeetingController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-route::get('/createmeeting', [MeetingController::class, 'index'])->name('createmeeting');
+route::get('/createmeeting', [MeetingController::class, 'create'])->name('createmeeting');
 route::post('/createmeeting', [MeetingController::class, 'store'])->name('createmeeting');
 
 
