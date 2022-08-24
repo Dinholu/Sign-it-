@@ -5,10 +5,10 @@
     <div class="bg-white w-[120%]">
         <Login/>
     </div>
-    <div class="bg-[#fec898] w-full text-center flex flex-col ">
+    <div class="bg-[#137C8B] w-full text-center flex flex-col ">
         <h1 class="text-white text-9xl mt-14 font-bold">Sign-it</h1>
         <p class="text-white text-3xl mt-8 m-5 grow">Votre application de gestion de réunions</p>
-        <h1 id="imageConn" class="text-[12vh] text-[#fec898] mb-14">CONNEXION</h1>
+        <!-- <h1 id="imageConn" class="text-[12vh] text-[#137C8B] text-bold mb-14 tracking-widest">CONNEXION</h1> -->
     </div>
     <HellosVG />
 </div>
@@ -43,8 +43,8 @@ body{
 
 
  #imageConn{
-  text-shadow: #e19b5e 0px 0 40px;
-  font-family: 'Montserrat';
+  text-shadow: #51b6c6 0px 0 60px;
+  font-family: 'Gochi Hand', cursive;
 
  }
 </style>

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\SealController;
 use Inertia\Inertia;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Str;
@@ -8,6 +7,8 @@ use Dotenv\Store\File\Paths;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\SealController;
+use App\Http\Controllers\MeetingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,8 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+route::get('/createmeeting', [MeetingController::class, 'index'])->name('createmeeting');
+route::post('/createmeeting', [MeetingController::class, 'store'])->name('createmeeting');
 
 
 # test pour pdf
@@ -38,8 +41,5 @@ Route::get('/hello', [SealController::class, "index"]);
 Route::post('/hello', [SealController::class, "store"]);
 
 
-#test svg
-Route::get('/svg', function () {
-    return Inertia::render('testsvg');
-});
+
 require __DIR__ . '/auth.php';

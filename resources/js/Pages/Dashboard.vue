@@ -1,6 +1,8 @@
 <script setup>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import BreezeInput from '@/Components/Input.vue';
+
 </script>
 
 <template>
@@ -8,10 +10,11 @@ import { Head } from '@inertiajs/inertia-vue3';
 
     <BreezeAuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
+            <h2 class="font-semibold text-xl text-[#344D59] leading-tight">
+                Liste de vos réunions
             </h2>
-        </template>
+            <BreezeInput id="searchbar" type="text" class="mt-5 w-full block rounded-xl" required autofocus autocomplete="rechercher" />
+            </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
