@@ -21,9 +21,9 @@ return new class extends Migration
             $table->dateTime('date');
             $table->date('closing');
             $table->string('privilege');
+            $table->string('slug')->unique();
             $table->string('statut')->default('open');
-            $table->string('author');
-
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }

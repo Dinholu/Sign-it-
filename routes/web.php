@@ -28,10 +28,18 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [MeetingController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::get('/index', [MeetingController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
+
+# Route pour créer un nouveau meeting
 route::get('/createmeeting', [MeetingController::class, 'create'])->name('createmeeting');
 route::post('/createmeeting', [MeetingController::class, 'store'])->name('createmeeting');
+
+
+# route afficher une réunion
+Route::get('meetings/{meeting:slug}', [MeetingController::class, 'show']);
+
 
 
 # test pour pdf

@@ -11,6 +11,18 @@ module.exports = {
 
     theme: {
         extend: {
+            keyframes: {
+                wave: {
+                    '0%': { transform: 'rotate(-8deg)' },
+                    '25%': { transform: 'rotate(45deg)' },
+                    '50%': { transform: 'rotate(0deg)' },
+                    '75%': { transform: 'rotate(45deg)' },
+                    '100%': { transform: 'rotate(-8deg)' },
+                },
+            },
+            animation: {
+                'waving-hand': 'wave 2s infinite',
+            },
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },

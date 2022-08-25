@@ -1,10 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import BreezeApplicationLogo from '@/Components/ApplicationLogo.vue';
-import BreezeDropdown from '@/Components/Dropdown.vue';
-import BreezeDropdownLink from '@/Components/DropdownLink.vue';
-import BreezeNavLink from '@/Components/NavLink.vue';
-import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
@@ -16,19 +11,19 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div class="flex flex-row h-[100vh]">
         <div class="bg-white w-[25%] h-full text-center text-[#344D59] flex flex-col justify-between">
-            <Link :href="route('dashboard')">
+            <Link :href="route('index')">
                 <h1 class="mt-8 mb-12 text-5xl font-bold">Sign-it</h1>
             </Link>
             <div class="grow mt-16">
                 <ul class="space-y-12 text-xl text-left w-[75%] m-auto ">
-                        <li class="hover:text-[#137C8B] text-bold active:text-[#137C8B] focus:outline-none focus:border-[#137C8B] focus:shadow-outline-gray transition ease-in-out duration-150"><Link :href="route('dashboard')">
+                        <li class="hover:text-[#137C8B] text-bold active:text-[#137C8B] focus:outline-none focus:border-[#137C8B] focus:shadow-outline-gray transition ease-in-out duration-150"><Link :href="route('index')">
                             <font-awesome-icon icon="fa-solid fa-house" class="pr-12 text-2xl" />Vos réunion</Link></li>
                     <li class="hover:text-[#137C8B] active:text-[#137C8B] focus:outline-[#137C8B] focus:border- focus:shadow-outline-[#137C8B] transition ease-in-out duration-150"><Link :href="route('createmeeting')">
                         <font-awesome-icon icon="fa-solid fa-handshake" class="pr-12 text-2xl"/>Ajouter une réunion</Link></li>
                     <li class="hover:text-[#137C8B] active:text-[#137C8B] focus:outline-[#137C8B] focus:border- focus:shadow-outline-[#137C8B] transition ease-in-out duration-150"><Link :href="route('createmeeting')">
                         <font-awesome-icon icon="fa-solid fa-file" class="pr-12 text-2xl"/>Vos documents</Link></li>
 
-                    <li class="hover:text-[#137C8B] active:text-[#137C8B] focus:outline-none focus:border-[#137C8B] focus:shadow-outline-gray transition ease-in-out duration-150"><Link :href="route('dashboard')">
+                    <li class="hover:text-[#137C8B] active:text-[#137C8B] focus:outline-none focus:border-[#137C8B] focus:shadow-outline-gray transition ease-in-out duration-150"><Link :href="route('index')">
                         <font-awesome-icon icon="fa-solid fa-gear" class="pr-12 text-2xl"/>Réglages</Link></li>
                 </ul>
             </div>

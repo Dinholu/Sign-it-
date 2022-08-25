@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Meeting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MeetingController extends Controller
 {
@@ -15,8 +16,8 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Dashboard', [
-            'meetings' => Meeting::all(),
+        return Inertia::render('meeting/Index', [
+            'meetings' => Auth::user()->meetings,
         ]);
     }
 
@@ -27,7 +28,7 @@ class MeetingController extends Controller
      */
     public function create()
     {
-        return Inertia::render('CreateMeeting');
+        return Inertia::render('meeting/CreateMeeting');
     }
 
     /**
@@ -45,10 +46,10 @@ class MeetingController extends Controller
             'date' => 'required',
             'closing' => 'required',
             'privilege' => 'required|string',
+            'slug' => 'required|string|max:45|unique:meetings'
         ]);
         $meeting = Meeting::create($data);
-        dd($meeting);
-        return redirect()->route('dashboard');
+        return redirect()->route('index');
     }
 
     /**
@@ -59,6 +60,10 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
+
+        return Inertia::render('meeting/showMeeting', [
+            'meeting' => $meeting,
+        ]);
     }
 
     /**

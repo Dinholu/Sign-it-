@@ -11,7 +11,7 @@
         <form @submit.prevent="submit" class="text-[#344D59]">
             <div>
                 <BreezeLabel for="title" value="Titre" />
-                <BreezeInput v-model="form.title" id="title" type="text" class="mt-1 block w-full" required autofocus autocomplete="title" />
+                <BreezeInput v-model="form.title" @change="slugcreate" id="title" type="text" class="mt-1 block w-full" required autofocus autocomplete="title" />
                 <BreezeInputError class="mt-2"/>
             </div>
             <div class="mt-4">
@@ -50,8 +50,7 @@
                 </BreezeButton>
             </div>
             </form>
-            {{this.form.date}}
-            {{this.form.closing}}
+            {{this.form.slug}}
         </div>
     </BreezeAuthenticatedLayout>
 </template>
@@ -86,13 +85,19 @@ export default {
                 place: null,
                 date: null,
                 closing: null,
-                privilege:null
+                privilege:null,
+                slug:null
                 }),
 
         };
     },
 
     methods: {
+
+        slugcreate() {
+            this.form.slug = this.form.title.replace(/\s+/g, '-').toLowerCase()+'-'+Math.floor(Math.random()*100);
+        },
+
         submit() {
             this.form.post("/createmeeting");
             console.log("lets go");
