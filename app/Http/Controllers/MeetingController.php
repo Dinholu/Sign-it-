@@ -6,6 +6,8 @@ use Inertia\Inertia;
 use App\Models\Meeting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Participant;
+use Illuminate\Http\Resources\MergeValue;
 
 class MeetingController extends Controller
 {
@@ -16,6 +18,13 @@ class MeetingController extends Controller
      */
     public function index()
     {
+        // $meetings = Auth::user()->meetings;
+        // foreach ($meetings as $meeting) {
+        //     $participants = $meeting->participant;
+        //     $AllParticipant += $participants;
+        // }
+        // dd($participants);
+
         return Inertia::render('meeting/Index', [
             'meetings' => Auth::user()->meetings,
         ]);
@@ -28,7 +37,7 @@ class MeetingController extends Controller
      */
     public function create()
     {
-        return Inertia::render('meeting/CreateMeeting');
+        return Inertia::render('meeting/Create');
     }
 
     /**
@@ -60,8 +69,14 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
-
-        return Inertia::render('meeting/showMeeting', [
+        $hello = [];
+        $participants = $meeting->participant;
+        foreach ($participants as $participant) {
+            if ($participant->id == Auth::user()->id) {
+                return 'Vous participez déja a cette réunion';
+            }
+        }
+        return Inertia::render('meeting/Show', [
             'meeting' => $meeting,
         ]);
     }
@@ -74,7 +89,9 @@ class MeetingController extends Controller
      */
     public function edit(Meeting $meeting)
     {
-        //
+        return Inertia::render('meeting/Edit', [
+            'meeting' => $meeting,
+        ]);
     }
 
     /**

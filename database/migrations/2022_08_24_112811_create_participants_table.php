@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('firstname');
             $table->string('email');
-            $table->foreignId('user_id')->onDelete('cascade');
+            $table->string('phone');
+            $table->string('ip');
             $table->foreignId('meeting_id')->onDelete('cascade');
+            $table->foreignId('user_id')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

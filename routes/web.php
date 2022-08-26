@@ -9,6 +9,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\SealController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\ParticipantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,12 +36,14 @@ Route::get('/index', [MeetingController::class, 'index'])->middleware(['auth', '
 # Route pour créer un nouveau meeting
 route::get('/createmeeting', [MeetingController::class, 'create'])->name('createmeeting');
 route::post('/createmeeting', [MeetingController::class, 'store'])->name('createmeeting');
+route::get('/editmeeting/{meeting:slug}', [MeetingController::class, 'edit'])->name('editmeeting');
 
 
 # route afficher une réunion
 Route::get('meetings/{meeting:slug}', [MeetingController::class, 'show']);
 
-
+#route pour participant
+Route::post('/createparticipant', [ParticipantController::class, 'store'])->name('createparticipant');
 
 # test pour pdf
 Route::get('/hello', [SealController::class, "index"]);

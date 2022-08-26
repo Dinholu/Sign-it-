@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Participant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -20,5 +21,9 @@ class Meeting extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function participant()
+    {
+        return $this->hasMany(Participant::class);
     }
 }

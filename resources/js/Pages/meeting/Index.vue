@@ -16,10 +16,10 @@
 
                 <div v-if="meetings.length > 0 " class="bg-white overflow-hidden shadow-sm sm:rounded-lg m-2">
                     <div v-for="meeting in meetings" :key="meeting" @click="displayMore = !displayMore" class="p-6 bg-white border-b border-gray-200">
-
                         <div class="flex flex-row justify-between">
                             <h2 class="block">{{meeting.title}}</h2>
                             <div class="flex space-x-5">
+                                <Link :href="'editmeeting/'+meeting.slug">Edit</Link>
                                 <h2>{{meeting.date}}</h2>
                                 <div v-if="meeting.statut == 'open'" class="block bg-green-500 rounded-xl p-2 h-2 m-1"></div>
                             </div>
@@ -62,7 +62,8 @@ export default {
     data() {
         return {
             displayMore: false,
-        }
+
+}
     },
 
 

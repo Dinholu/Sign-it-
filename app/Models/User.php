@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Meeting;
+use App\Models\Participant;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,5 +47,9 @@ class User extends Authenticatable
     public function meetings()
     {
         return $this->hasMany(Meeting::class);
+    }
+    public function participant()
+    {
+        return $this->hasOne(Participant::class);
     }
 }

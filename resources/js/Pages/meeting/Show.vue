@@ -3,29 +3,34 @@
 
         <GuestLayout class="bg-[url('/public/ecran.png')] bg-cover h-[100vh] ">
 
-        <div class="backdrop-blur-sm bg-white/30 p-6 rounded-xl space-y-5 text-center">
-            <h1 class="text-6xl mb-6 font-bold">Vous êtes invité</h1>
-            <font-awesome-icon  class="text-center text-6xl animate-waving-hand" icon="fa-solid fa-hand" />
+        <div class="backdrop-blur-sm bg-white/30 px-3 py-6 rounded-xl space-y-7 text-center">
+            <font-awesome-icon  class="text-center text-6xl animate-waving-hand mt-3" icon="fa-solid fa-hand" />
             <h1 class="text-3xl text-center mb-6 font-bold">{{meeting.title}}</h1>
+
+            <h1 class="text-5xl mb-6 font-bold p-4">Vous êtes invité</h1>
             <div class="m-auto w-[55%] text-left">
                 <p>{{meeting.description}}</p>
                 <p>{{meeting.place}}</p>
-                <p>{{meeting.date}}</p>
+                <p class="mb-5">{{meeting.date}}</p>
             </div>
-            <p class="text-center">Voulez vous participez a cette réunion ?</p>
-            <div class="flex flex-row justify-between px-6">
-                <BreezeButton class="">
+        </div>
+
+            <div class="flex flex-row justify-between px-10 mt-2  backdrop-blur-sm bg-white/30 p-6 rounded-xl">
+                <BreezeButton @click="TriggerButton">
                     Participer
                 </BreezeButton>
                 <BreezeButton class="">
-                    <Link href="/">Décliner</Link>
+                    <Link :href="route('index')">Décliner</Link>
                 </BreezeButton>
             </div>
-            </div>
         </GuestLayout>
-
+        <PopupVue v-if="buttonTrigger"  :meetingid="meeting.id" :TriggerButton="this.TriggerButton">
+                <h1>Vos informations</h1>
+    </PopupVue>
 </template>
 <script>
+import { ref } from 'vue';
+import PopupVue from '@/Components/Popup.vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import { Link } from '@inertiajs/inertia-vue3';
 import GuestLayout from '@/Layouts/Guest.vue';
@@ -46,7 +51,18 @@ export default {
         Head,
         Link,
         GuestLayout,
-        BreezeButton
+        BreezeButton,
+        PopupVue
+    },
+    data() {
+        return {
+            buttonTrigger: false,
+        }
+    },
+    methods: {
+        TriggerButton() {
+            this.buttonTrigger = !this.buttonTrigger;
+        }
     },
 }
 </script>

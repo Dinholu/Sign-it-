@@ -13,11 +13,11 @@ module.exports = {
         extend: {
             keyframes: {
                 wave: {
-                    '0%': { transform: 'rotate(-8deg)' },
-                    '25%': { transform: 'rotate(45deg)' },
-                    '50%': { transform: 'rotate(0deg)' },
-                    '75%': { transform: 'rotate(45deg)' },
-                    '100%': { transform: 'rotate(-8deg)' },
+                    '0%': { transform: 'rotate(25deg)' },
+                    '25%': { transform: 'rotate(65deg)' },
+                    '50%': { transform: 'rotate(25deg)' },
+                    '75%': { transform: 'rotate(65deg)' },
+                    '100%': { transform: 'rotate(25deg)' },
                 },
             },
             animation: {
