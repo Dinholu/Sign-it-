@@ -37,6 +37,8 @@ Route::get('/index', [MeetingController::class, 'index'])->middleware(['auth', '
 route::get('/createmeeting', [MeetingController::class, 'create'])->name('createmeeting');
 route::post('/createmeeting', [MeetingController::class, 'store'])->name('createmeeting');
 route::get('/editmeeting/{meeting:slug}', [MeetingController::class, 'edit'])->name('editmeeting');
+route::put('/editmeeting/{meeting:slug}', [MeetingController::class, 'update'])->name('editmeeting');
+route::delete('/deletemeeting/{meeting:slug}', [MeetingController::class, 'destroy'])->name('deletemeeting');
 
 
 # route afficher une réunion
@@ -48,6 +50,7 @@ Route::post('/createparticipant', [ParticipantController::class, 'store'])->name
 # test pour pdf
 Route::get('/hello', [SealController::class, "index"]);
 Route::post('/hello', [SealController::class, "store"]);
+
 
 
 

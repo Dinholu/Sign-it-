@@ -18,15 +18,11 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        // $meetings = Auth::user()->meetings;
-        // foreach ($meetings as $meeting) {
-        //     $participants = $meeting->participant;
-        //     $AllParticipant += $participants;
-        // }
-        // dd($participants);
+
 
         return Inertia::render('meeting/Index', [
             'meetings' => Auth::user()->meetings,
+            'participants' => Participant::all(),
         ]);
     }
 
@@ -58,6 +54,19 @@ class MeetingController extends Controller
             'slug' => 'required|string|max:45|unique:meetings'
         ]);
         $meeting = Meeting::create($data);
+
+        $admin = Auth::user();
+
+        $admindata = [
+            'name' => $admin->name,
+            'firstname' => "alizée",
+            'email' => $admin->email,
+            'phone' => "0606060606",
+            'ip' => "123456",
+            'meeting_id' => $meeting->id,
+            'user_id' => $admin->id,
+        ];
+        $data = Participant::create($admindata);
         return redirect()->route('index');
     }
 
@@ -69,7 +78,7 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
-        $hello = [];
+
         $participants = $meeting->participant;
         foreach ($participants as $participant) {
             if ($participant->id == Auth::user()->id) {
@@ -103,7 +112,16 @@ class MeetingController extends Controller
      */
     public function update(Request $request, Meeting $meeting)
     {
-        //
+        $attributes = request()->validate([
+            'title' => 'required|string|max:45',
+            'description' => 'required|string|max:255',
+            'place' => 'required|string|max:255',
+            'date' => 'required',
+            'closing' => 'required',
+            'privilege' => 'required|string',
+        ]);
+        $meeting->update($attributes);
+        return back();
     }
 
     /**
@@ -114,6 +132,7 @@ class MeetingController extends Controller
      */
     public function destroy(Meeting $meeting)
     {
-        //
+        $meeting->delete();
+        return back();
     }
 }

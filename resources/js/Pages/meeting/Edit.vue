@@ -6,37 +6,37 @@
             </h2>
         </template>
         <div class="p-12">
-        <form class="text-[#344D59]">
+        <form  @submit.prevent="submit" class="text-[#344D59]">
             <div>
                 <BreezeLabel for="title" value="Titre" />
-                <BreezeInput v-model="meeting.title" @change="this.form.title=meeting.title" id="title" type="text" class="mt-1 block w-full" required autofocus autocomplete="title" />
+                <BreezeInput  v-model="form.title" id="title" type="text" class="mt-1 block w-full" required autofocus autocomplete="title" />
                 <BreezeInputError class="mt-2"/>
             </div>
             <div class="mt-4">
                 <BreezeLabel for="description" value="Description"/>
-                <BreezeInput v-model="meeting.description" @change="this.form.description=meeting.description" id="description" type="text" class="mt-1 block w-full"  required autocomplete="Votre description" />
+                <BreezeInput v-model="form.description" id="description" type="text" class="mt-1 block w-full"  required autocomplete="Votre description" />
                 <BreezeInputError class="mt-2"/>
             </div>
             <div class="mt-4">
                 <BreezeLabel for="place" value="Lieu"/>
-                <BreezeInput v-model="meeting.place" @change="this.form.place=meeting.place" id="place" type="text" class="mt-1 block w-full" required autocomplete="Lieu" />
+                <BreezeInput v-model="form.place"  id="place" type="text" class="mt-1 block w-full" required autocomplete="Lieu" />
                 <BreezeInputError class="mt-2"/>
             </div>
             <div class="mt-4 flex flex-row w-full justify-between">
                 <div class="w-[45%]">
                     <BreezeLabel for="date" value="Date de la réunion"/>
-                    <BreezeInput v-model="meeting.date" @change="this.form.date = meeting.date" id="date" type="datetime-local" class="mt-1 block w-full" :value="meeting.da" required autocomplete="DateMeeting" />
+                    <BreezeInput v-model="form.date" id="date" type="datetime-local" class="mt-1 block w-full" required autocomplete="DateMeeting" />
                     <BreezeInputError class="mt-2"/>
                     </div>
                 <div class="w-[45%]">
                     <BreezeLabel for="closing" value="Date de cloture"/>
-                    <BreezeInput v-model="meeting.closing" @change="this.form.closing = meeting.closing" id="closing" type="date" class="mt-1 block w-full" required autocomplete="DateClosing" />
+                    <BreezeInput v-model="form.closing"  id="closing" type="date" class="mt-1 block w-full" required autocomplete="DateClosing" />
                     <BreezeInputError class="mt-2"/>
                 </div>
             </div>
             <div class="mt-4">
                 <BreezeLabel for="privilege" value="Privileges"/>
-                <select v-model="meeting.privilege" @change="this.form.privilege" class="mt-1 block w-full border-gray-300 focus:border-[#137C8B] focus:ring focus:ring-[#137C8B] focus:ring-opacity-50 rounded-md shadow-sm" name="privilege" id="privilege">
+                <select v-model="form.privilege"  class="mt-1 block w-full border-gray-300 focus:border-[#137C8B] focus:ring focus:ring-[#137C8B] focus:ring-opacity-50 rounded-md shadow-sm" name="privilege" id="privilege">
                     <option value="public">Public</option>
                     <option value="private">Privée</option>
                 </select>
@@ -90,7 +90,9 @@ export default {
                 place: null,
                 date: null,
                 closing: null,
-                privilege: null
+                privilege: null,
+                slug : null
+
             })
         }
     },
@@ -102,15 +104,14 @@ export default {
         this.form.date = this.meeting.date;
         this.form.closing = this.meeting.closing;
         this.form.privilege = this.meeting.privilege;
+        this.form.slug = this.meeting.slug;
     },
 
-    methods:{
-        newValue(item, event){
-            alert(item)
-            alert(event.target.value)
-            item=event.target.value
+    methods: {
+        submit() {
+            this.form.put('/editmeeting/'+this.meeting.slug);
         }
-    },
+    }
 
 }
 </script>
