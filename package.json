@@ -26,6 +26,8 @@
         "@fortawesome/free-regular-svg-icons": "^6.1.2",
         "@fortawesome/free-solid-svg-icons": "^6.1.2",
         "@fortawesome/vue-fontawesome": "^3.0.1",
-        "@vuepic/vue-datepicker": "^3.4.6"
+        "@vuepic/vue-datepicker": "^3.4.6",
+        "luxon": "^3.0.3",
+        "vue-clipboard3": "^2.0.0"
     }
 }

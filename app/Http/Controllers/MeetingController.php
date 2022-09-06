@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Meeting;
+use Inertia\Controller;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Participant;
@@ -18,10 +20,13 @@ class MeetingController extends Controller
      */
     public function index()
     {
-
+        $meetings = Meeting::join('participants', 'meetings.id', '=', 'participants.meeting_id')
+            ->where('participants.user_id', Auth::user()->id)
+            ->select('meetings.*')
+            ->get();
 
         return Inertia::render('meeting/Index', [
-            'meetings' => Auth::user()->meetings,
+            'meetings' => $meetings,
             'participants' => Participant::all(),
         ]);
     }
@@ -59,15 +64,15 @@ class MeetingController extends Controller
 
         $admindata = [
             'name' => $admin->name,
-            'firstname' => "alizée",
+            'firstname' => $admin->firstname,
             'email' => $admin->email,
-            'phone' => "0606060606",
-            'ip' => "123456",
+            'phone' => $admin->phone,
+            'ip' => $admin->ip,
             'meeting_id' => $meeting->id,
             'user_id' => $admin->id,
         ];
         $data = Participant::create($admindata);
-        return redirect()->route('index');
+        return redirect()->route('index')->with('message', 'La Réunion a été créée avec succès');
     }
 
     /**
@@ -78,13 +83,15 @@ class MeetingController extends Controller
      */
     public function show(Meeting $meeting)
     {
-
-        $participants = $meeting->participant;
-        foreach ($participants as $participant) {
-            if ($participant->id == Auth::user()->id) {
-                return 'Vous participez déja a cette réunion';
+        if (Auth::user()) {
+            $participants = $meeting->participant;
+            foreach ($participants as $participant) {
+                if (Auth::user()->id == $participant->user_id) {
+                    return redirect()->route('index')->with('message', 'Vous êtes déjà inscrit à cette réunion');
+                }
             }
         }
+
         return Inertia::render('meeting/Show', [
             'meeting' => $meeting,
         ]);

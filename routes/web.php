@@ -27,7 +27,7 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
-});
+})->name('Welcome');
 
 
 
@@ -50,6 +50,7 @@ Route::post('/createparticipant', [ParticipantController::class, 'store'])->name
 # test pour pdf
 Route::get('/hello', [SealController::class, "index"]);
 Route::post('/hello', [SealController::class, "store"]);
+
 
 
 

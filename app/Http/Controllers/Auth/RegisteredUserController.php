@@ -36,13 +36,19 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'firstname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|numeric',
+            'ip' => 'required|string',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'firstname' => $request->firstname,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'ip' => $request->ip,
             'password' => Hash::make($request->password),
         ]);
 
@@ -50,6 +56,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME)->with('message', 'Bonjour ' . $user->name . ' ' . $user->firstname . ', vous êtes bien inscrit !');
     }
 }

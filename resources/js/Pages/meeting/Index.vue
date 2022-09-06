@@ -1,20 +1,31 @@
 
-<template>
+<template >
 
     <Head title="Liste de vos réunions" />
 
     <BreezeAuthenticatedLayout class="">
         <template #header>
-            <h2 class="font-semibold text-xl text-[#344D59] leading-tight">
+            <h2 class="font-semibold text-xl text-[#344D59] leading-tight ">
                 Liste de vos réunions
             </h2>
             <BreezeInput id="searchbar" type="text" class="mt-5 w-full block rounded-xl" required autofocus
                 autocomplete="rechercher" />
+
+            <div class="flex gap-8 px-5 pt-5">
+                <div class="py-4 px-6 bg-emerald-200 rounded-full text-xl ">Réunion en cours</div>
+                <div class="py-4 px-6 bg-red-200 rounded-full text-xl ">Réunion close</div>
+                <div class="text-xl my-auto">Clear</div>
+
+            </div>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col mb-5">
 
+        <div id="text" class="py-12 bg-gray-100">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col mb-5">
+                <div v-if=$page.props.flash.message
+                    class="fixed bottom-5 bg-[#344D59] px-8 py-4 rounded-2xl text-white font-bold right-8">
+                    {{ $page.props.flash.message }}
+                </div>
 
                 <div v-if="meetings.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
 
@@ -27,6 +38,8 @@
                         <Link :href="route('createmeeting')">ici</Link> pour ajouter une réunion
                     </h2>
                 </div>
+
+
             </div>
         </div>
     </BreezeAuthenticatedLayout>
@@ -62,6 +75,17 @@ export default {
         }
     },
 
+    mounted() {
+        this.setTimeout()
+    },
+
+    methods: {
+        setTimeout() {
+            setTimeout(() => {
+                this.$page.props.flash.message = null;
+            }, 3000);
+        }
+    }
 
 }
 </script>

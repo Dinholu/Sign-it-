@@ -1,18 +1,20 @@
 <template>
-    <div @click="displayMore = !displayMore" class="p-6 bg-white sm:rounded-sm  border-x-4 border-emerald-200 ">
-        <div class="flex flex-row justify-between">
+    <div class="p-6 bg-white sm:rounded-sm  border-x-4 border-emerald-200 ">
+        <div @click="displayMore = !displayMore" class="flex flex-row justify-between">
             <h2 class="block text-xl font-semibold">{{ meeting.title }}</h2>
             <div class="flex space-x-5 ">
                 <h2 class="m-auto">{{ meeting.date.toLocaleString('fr') }}</h2>
 
             </div>
         </div>
-        <div v-if="displayMore" class=" mt-5 flex flex-row gap-8">
+        <div v-if="displayMore" class=" mt-5 flex flex-row justify-between">
             <div class="">
                 <p class="my-2 italic ">{{ meeting.description }}</p>
                 <p>Le lien de votre réunion :
                     <Link :href="'/meetings/' + meeting.slug" class="underline text-[#137C8B] m-auto text-sm">
                     http://tmed-signit.test/meetings/{{ meeting.slug }}</Link>
+
+                    <font-awesome-icon @click="copy()" class="hidden" icon="fa-solid fa-copy" />
 
                 </p>
                 <p>Participants : </p>
@@ -42,6 +44,10 @@
 </template>
 <script>
 import { Link } from '@inertiajs/inertia-vue3';
+import { Method } from '@inertiajs/inertia';
+import useClipboard from 'vue-clipboard3'
+
+
 export default {
     name: 'meetingItemsVue',
     components: {
@@ -61,7 +67,8 @@ export default {
     data() {
         return {
             displayMore: false,
-            AllParticipants: []
+            AllParticipants: [],
+            navigator: navigator
         }
     },
     mounted() {
@@ -72,6 +79,20 @@ export default {
                 }
             });
         }
+    },
+    methods: {
+        async copy() {
+
+            try {
+                await navigator.clipboard.writeText(location.href);
+                console.log('Page URL copied to clipboard');
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+
+        }
     }
+
 }
+
 </script>

@@ -69,8 +69,7 @@ import BreezeButton from '@/Components/Button.vue';
 import BreezeCheckbox from '@/Components/Checkbox.vue';
 import BreezeInputError from '@/Components/InputError.vue';
 import BreezeLabel from '@/Components/Label.vue';
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+
 
 export default {
     name: 'CreateMeeting',
@@ -82,7 +81,6 @@ export default {
         BreezeCheckbox,
         BreezeInputError,
         BreezeLabel,
-        Datepicker
     },
     data() {
         return {

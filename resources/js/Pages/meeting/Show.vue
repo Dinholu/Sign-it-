@@ -9,8 +9,8 @@
             <h1 class="text-3xl text-center mb-6 font-bold">{{ meeting.title }}</h1>
 
             <h1 class="text-5xl mb-6 font-bold p-4">Vous êtes invité</h1>
-            <div class="m-auto w-[55%] text-left">
-                <p>{{ meeting.description }}</p>
+            <div class="m-auto w-fit text-left">
+                <p class="italic mb-4">{{ meeting.description }}</p>
                 <p>{{ meeting.place }}</p>
                 <p class="mb-5">{{ meeting.date }}</p>
             </div>
@@ -39,13 +39,14 @@ import BreezeButton from '@/Components/Button.vue';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { DateTime } from "luxon";
 
 export default {
     name: 'ShowMeeting',
     props: {
         meeting: {
             type: Object,
-            required: true
+            required: true,
         }
     },
     components: {
@@ -53,17 +54,25 @@ export default {
         Link,
         GuestLayout,
         BreezeButton,
-        PopupVue
+        PopupVue,
     },
     data() {
         return {
             buttonTrigger: false,
+            datemeeting: null
         }
     },
+
     methods: {
         TriggerButton() {
             this.buttonTrigger = !this.buttonTrigger;
         }
     },
+    mounted() {
+        this.datemeeting = this.meeting.date.toLocaleString(DateTime.DATETIME_SHORT)
+        console.log(this.datemeeting)
+    }
+
+
 }
 </script>
