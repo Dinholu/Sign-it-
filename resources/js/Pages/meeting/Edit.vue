@@ -50,7 +50,7 @@
                     <BreezeInputError class="mt-2" />
                 </div>
                 <div class="mt-12 text-right">
-                    <BreezeButton class="ml-4">
+                    <BreezeButton class="ml-4" :disabled="form.processing">
                         Modifier la réunion
                     </BreezeButton>
                 </div>

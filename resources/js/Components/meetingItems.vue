@@ -1,10 +1,13 @@
 <template>
-    <div class="p-6 bg-white sm:rounded-sm  border-x-4 border-emerald-200 ">
-        <div @click="displayMore = !displayMore" class="flex flex-row justify-between">
-            <h2 class="block text-xl font-semibold">{{ meeting.title }}</h2>
+    <div class="p-6 bg-white sm:rounded-sm  border-x-4 "
+        :class="meeting.statut == 'open' ? 'border-emerald-200' : 'border-red-200'">
+        <div @click="displayMore = !displayMore" class="flex flex-row justify-between cursor-pointer">
+            <h2 class="block text-xl font-semibold my-auto">{{ meeting.title }}</h2>
             <div class="flex space-x-5 ">
-                <h2 class="m-auto">{{ meeting.date.toLocaleString('fr') }}</h2>
-
+                <div>
+                    <h2 class="m-auto font-semibold">Le {{ meeting.date.toLocaleString('fr') }}</h2>
+                    <h2 class="m-auto text-center">Lieu : {{ meeting.place }}</h2>
+                </div>
             </div>
         </div>
         <div v-if="displayMore" class=" mt-5 flex flex-row justify-between">
@@ -19,19 +22,21 @@
                 </p>
                 <p>Participants : </p>
                 <ul v-for="parti in this.AllParticipants" :key="parti.id">
-                    <li class="ml-5 font-bold text-[#137C8B]" v-if="parti.user_id == meeting.user_id">{{ parti.name +
+                    <li class="ml-5 font-bold text-[#137C8B]" v-if="parti.user_id == meeting.user_id">{{ parti.name
+                            +
                             ' ' + parti.firstname + ' (Admin)'
                     }}</li>
                     <li class="ml-5" v-else>{{ parti.name + ' ' + parti.firstname }}</li>
                 </ul>
             </div>
             <div class="w-[45%] text-right space-y-1">
+
                 <Link class="text-sm text-gray-300 m-auto block focus:text-[#137C8B] hover:text-[#137C8B]"
                     :href="'editmeeting/' + meeting.slug">Modifier la
                 réunion
                 </Link>
                 <Link class="text-sm text-gray-300 m-auto block focus:text-[#137C8B] hover:text-[#137C8B]"
-                    :href="'closemeeting/' + meeting.slug">Marquée comme close
+                    :href="'closemeeting/' + meeting.slug" method="put">Marquée comme close
                 </Link>
                 <Link class="text-sm text-gray-300 m-auto block focus:text-[#137C8B] hover:text-[#137C8B]"
                     :href="'deletemeeting/' + meeting.slug" method="DELETE">Supprimer la

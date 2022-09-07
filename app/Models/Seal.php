@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Seal extends Model
 {
     use HasFactory;
-    protected $fillable = ['path', 'token', 'sha1'];
+    protected $fillable = ['path', 'token', 'sha1', 'meeting_id'];
 }

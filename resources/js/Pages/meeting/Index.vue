@@ -8,19 +8,27 @@
             <h2 class="font-semibold text-xl text-[#344D59] leading-tight ">
                 Liste de vos réunions
             </h2>
-            <BreezeInput id="searchbar" type="text" class="mt-5 w-full block rounded-xl" required autofocus
-                autocomplete="rechercher" />
-
+            <BreezeInput id="searchbar" v-model="searchbar" type="text" class="mt-5 w-full block rounded-xl"
+                placeholder="Rechercher... " required autofocus autocomplete="rechercher" />
             <div class="flex gap-8 px-5 pt-5">
-                <div class="py-4 px-6 bg-emerald-200 rounded-full text-xl ">Réunion en cours</div>
-                <div class="py-4 px-6 bg-red-200 rounded-full text-xl ">Réunion close</div>
-                <div class="text-xl my-auto">Clear</div>
-
+                <input class="hidden" type="radio" name="filter" id="filterAll" value="All" v-model="picked"
+                    checked><label for="filterAll"
+                    class="text-xl my-auto border-2 py-4 px-6 rounded-full  hover:cursor-pointer"
+                    :class="picked == 'All' ? 'underline text-white bg-[#344D59]' : 'hover:text-white hover:bg-[#344D59]'">Toutes</label>
+                <input class="hidden" type="radio" name="filter bg-[#344D59]" id="filterActive" value="open"
+                    v-model="picked"><label for="filterActive"
+                    class="py-4 px-6 hover:cursor-pointer rounded-full text-xl"
+                    :class="picked == 'open' ? 'underline bg-[#344D59] text-emerald-200 ' : ' bg-emerald-200 '">Réunions
+                    à venir</label>
+                <input class=" hidden" type="radio" name="filter" id="filterClose" value="close" v-model="picked"><label
+                    class=" py-4 px-6  rounded-full text-xl  hover:cursor-pointer " for="filterClose"
+                    :class="picked == 'close' ? 'underline bg-[#344D59] text-red-200 ' : 'bg-red-200 hover:text-red-200 hover:bg-[#344D59]'">Réunions
+                    closes</label>
             </div>
         </template>
 
 
-        <div id="text" class="py-12 bg-gray-100">
+        <div id=" text" class="py-12 bg-gray-100">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col mb-5">
                 <div v-if=$page.props.flash.message
                     class="fixed bottom-5 bg-[#344D59] px-8 py-4 rounded-2xl text-white font-bold right-8">
@@ -29,8 +37,8 @@
 
                 <div v-if="meetings.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
 
-                    <meetingItemsVue class="mb-5" v-for='meeting in meetings' :key="meeting.id" :meeting="meeting"
-                        :participants="participants"></meetingItemsVue>
+                    <meetingItemsVue class="mb-5" v-for=' meeting in meetingFiltered' :key="meeting.id"
+                        :meeting="meeting" :participants="participants"></meetingItemsVue>
                 </div>
 
                 <div v-else class="bg-white overflow-hidden shadow-sm sm:rounded-lg border-b border-gray-200">
@@ -50,7 +58,7 @@ import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import BreezeInput from '@/Components/Input.vue';
 import meetingItemsVue from '@/Components/meetingItems.vue';
-
+import { watch } from '@vue/runtime-core';
 export default {
     components: {
         BreezeAuthenticatedLayout,
@@ -71,12 +79,15 @@ export default {
     data() {
         return {
             displayMore: false,
-
+            searchbar: '',
+            list: [],
+            picked: 'All',
         }
     },
 
     mounted() {
         this.setTimeout()
+        console.log(this.searchbar)
     },
 
     methods: {
@@ -85,9 +96,44 @@ export default {
                 this.$page.props.flash.message = null;
             }, 3000);
         }
-    }
+    },
+    computed: {
+        meetingFiltered() {
+            if (!this.searchbar) {
+                this.list = this.meetings;
+            } else {
+                let searchCleaned = this.searchbar.toLowerCase().trim();
+                this.list = this.meetings.filter(meeting => {
+                    if ((meeting.title.toLowerCase().includes(searchCleaned) ||
+                        meeting.description.toLowerCase().includes(searchCleaned)) ||
+                        meeting.place.toLowerCase().includes(searchCleaned)) {
+                        return meeting;
+                    }
+                });
 
+            }
+            if (this.picked == 'All') {
+                return this.list;
+            } else if (this.picked == 'open') {
+                return this.list.filter(meeting => {
+                    if (meeting.statut == 'open') {
+                        return meeting;
+                    }
+                });
+            } else if (this.picked == 'close') {
+                return this.list.filter(meeting => {
+                    if (meeting.statut == 'close') {
+                        return meeting;
+                    }
+                });
+            }
+
+            return this.list;
+        },
+    },
 }
+
+
 </script>
 <style>
 </style>

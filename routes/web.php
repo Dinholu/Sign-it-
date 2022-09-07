@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Seal;
 use Inertia\Inertia;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Str;
@@ -38,6 +39,7 @@ route::get('/createmeeting', [MeetingController::class, 'create'])->name('create
 route::post('/createmeeting', [MeetingController::class, 'store'])->name('createmeeting');
 route::get('/editmeeting/{meeting:slug}', [MeetingController::class, 'edit'])->name('editmeeting');
 route::put('/editmeeting/{meeting:slug}', [MeetingController::class, 'update'])->name('editmeeting');
+route::put('/closemeeting/{meeting:slug}', [MeetingController::class, 'close'])->name('closemeeting');
 route::delete('/deletemeeting/{meeting:slug}', [MeetingController::class, 'destroy'])->name('deletemeeting');
 
 
@@ -47,9 +49,11 @@ Route::get('meetings/{meeting:slug}', [MeetingController::class, 'show']);
 #route pour participant
 Route::post('/createparticipant', [ParticipantController::class, 'store'])->name('createparticipant');
 
+
+Route::get('/seal', [SealController::class, 'index'])->name('seals');
 # test pour pdf
-Route::get('/hello', [SealController::class, "index"]);
-Route::post('/hello', [SealController::class, "store"]);
+// Route::get('/hello', [SealController::class, "index"]);
+// Route::post('/hello', [SealController::class, "store"]);
 
 
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('path');
             $table->string('token');
             $table->string('sha1');
+            $table->foreignId('meeting_id')->constrained('meetings');
             $table->timestamps();
         });
     }

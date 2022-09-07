@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Meeting extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description', 'place', 'date', 'closing', 'privilege', 'slug'];
+    protected $fillable = ['title', 'description', 'place', 'date', 'closing', 'privilege', 'slug', 'statut'];
 
     protected static function booted()
     {
