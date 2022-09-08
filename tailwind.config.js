@@ -22,6 +22,7 @@ module.exports = {
             },
             animation: {
                 'waving-hand': 'wave 2s infinite',
+                'transition-colors': 'all 0.5s 0s ease-in-out',
             },
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],

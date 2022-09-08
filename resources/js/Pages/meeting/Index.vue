@@ -11,24 +11,26 @@
             <BreezeInput id="searchbar" v-model="searchbar" type="text" class="mt-5 w-full block rounded-xl"
                 placeholder="Rechercher... " required autofocus autocomplete="rechercher" />
             <div class="flex gap-8 px-5 pt-5">
-                <input class="hidden" type="radio" name="filter" id="filterAll" value="All" v-model="picked"
-                    checked><label for="filterAll"
-                    class="text-xl my-auto border-2 py-4 px-6 rounded-full  hover:cursor-pointer"
-                    :class="picked == 'All' ? 'underline text-white bg-[#344D59]' : 'hover:text-white hover:bg-[#344D59]'">Toutes</label>
+
                 <input class="hidden" type="radio" name="filter bg-[#344D59]" id="filterActive" value="open"
-                    v-model="picked"><label for="filterActive"
-                    class="py-4 px-6 hover:cursor-pointer rounded-full text-xl"
-                    :class="picked == 'open' ? 'underline bg-[#344D59] text-emerald-200 ' : ' bg-emerald-200 '">Réunions
+                    v-model="picked" checked><label for="filterActive"
+                    class="py-4 px-6 hover:cursor-pointer rounded-full text-xl transition ease-in-out duration-500"
+                    :class="picked == 'open' ? ' bg-[#344D59] text-emerald-200 ' : 'hover:text-emerald-200 hover:bg-[#344D59] bg-emerald-200 '">Réunions
                     à venir</label>
                 <input class=" hidden" type="radio" name="filter" id="filterClose" value="close" v-model="picked"><label
-                    class=" py-4 px-6  rounded-full text-xl  hover:cursor-pointer " for="filterClose"
-                    :class="picked == 'close' ? 'underline bg-[#344D59] text-red-200 ' : 'bg-red-200 hover:text-red-200 hover:bg-[#344D59]'">Réunions
+                    class=" py-4 px-6  rounded-full text-xl  hover:cursor-pointer transition ease-in-out duration-500"
+                    for="filterClose"
+                    :class="picked == 'close' ? ' bg-[#344D59] text-red-200 ' : 'bg-red-200 hover:text-red-200 hover:bg-[#344D59]'">Réunions
                     closes</label>
+                <input class="hidden" type="radio" name="filter" id="filterAll" value="All" v-model="picked"><label
+                    for="filterAll"
+                    class="text-xl my-auto border-2 py-4 px-6 rounded-full  hover:cursor-pointer transition ease-in-out duration-500"
+                    :class="picked == 'All' ? ' text-white bg-[#344D59]' : 'bg-[#137C8B] hover:text-white hover:bg-[#344D59]'">Toutes</label>
             </div>
         </template>
 
 
-        <div id=" text" class="py-12 bg-gray-100">
+        <div id=" text" class="py-12 bg-gray-100 m-2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col mb-5">
                 <div v-if=$page.props.flash.message
                     class="fixed bottom-5 bg-[#344D59] px-8 py-4 rounded-2xl text-white font-bold right-8">
@@ -81,7 +83,7 @@ export default {
             displayMore: false,
             searchbar: '',
             list: [],
-            picked: 'All',
+            picked: 'open',
         }
     },
 

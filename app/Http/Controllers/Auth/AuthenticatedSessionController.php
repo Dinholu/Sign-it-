@@ -40,6 +40,14 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(RouteServiceProvider::HOME)->with('message', "Bonjour " . Auth::user()->firstname . " !");
     }
 
+    public function edit()
+    {
+        $user = Auth::user();
+        return Inertia::render('Settings', [
+            'user' => $user,
+        ]);
+    }
+
     /**
      * Destroy an authenticated session.
      *

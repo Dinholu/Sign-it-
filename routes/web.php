@@ -51,6 +51,7 @@ Route::post('/createparticipant', [ParticipantController::class, 'store'])->name
 
 
 Route::get('/seal', [SealController::class, 'index'])->name('seals');
+Route::get('/seal/{seal:id}', [SealController::class, 'download']);
 # test pour pdf
 // Route::get('/hello', [SealController::class, "index"]);
 // Route::post('/hello', [SealController::class, "store"]);

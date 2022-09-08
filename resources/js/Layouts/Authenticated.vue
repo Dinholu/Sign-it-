@@ -9,31 +9,32 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 <template>
     <div class="flex flex-row h-[100vh]">
-        <div class=" w-[25%] h-full text-center bg-[#137C8B] flex flex-col justify-between fixed top-0">
+        <div class=" w-[25%] h-full text-center bg-[#137C8B] text-gray-800 flex flex-col justify-between fixed top-0">
             <Link :href="route('index')">
             <h1 class="mt-8 mb-12 text-5xl font-bold">Sign-it</h1>
             </Link>
             <div class="grow mt-16">
                 <ul class="space-y-12 text-xl text-left w-[75%] m-auto ">
-                    <li class="hover:text-white text-bold ">
+                    <li class="transition ease-in-out hover:text-white text-bold duration-500">
                         <Link :href="route('index')"
                             :class="{ 'text-white underline text-bold': $page.url == '/index' }">
                         <font-awesome-icon icon=" fa-solid fa-house" class="pr-12 text-2xl" />Vos réunion</Link>
                     </li>
-                    <li class="hover:text-white active:text-white transition ease-in-out duration-150">
+                    <li class="transition ease-in-out hover:text-white text-bold duration-500">
                         <Link :href="route('createmeeting')"
                             :class="{ 'text-white underline text-bold': $page.url == '/createmeeting' }">
                         <font-awesome-icon icon=" fa-solid fa-handshake" class="pr-12 text-2xl" />Ajouter une réunion
                         </Link>
                     </li>
-                    <li class="hover:text-white active:text-white transition ease-in-out duration-150">
+                    <li class="transition ease-in-out hover:text-white text-bold duration-500">
                         <Link :href="route('seals')"
                             :class="{ 'text-white underline text-bold': $page.url == '/seal' }">
                         <font-awesome-icon icon=" fa-solid fa-file" class="pr-12 text-2xl" />Vos documents</Link>
                     </li>
 
-                    <li class="hover:text-white active:text-white transition ease-in-out duration-150">
-                        <Link :href="route('index')">
+                    <li class="transition ease-in-out hover:text-white text-bold duration-500">
+                        <Link :href="route('editUser')"
+                            :class="{ 'text-white underline text-bold': $page.url == '/editUser' }">
                         <font-awesome-icon icon="fa-solid fa-gear" class="pr-12 text-2xl" />Réglages</Link>
                     </li>
                 </ul>
@@ -44,7 +45,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
                 <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
 
             </div>
-            <Link :href="route('logout')" method="post" as="button" class="mb-4 text-sm text-gray-300">Déconnexion
+            <Link :href="route('logout')" method="post" as="button"
+                class="mb-4 text-sm text-gray-300 transition ease-in-out duration-500 hover:text-[#344D59]">Déconnexion
             </Link>
         </div>
         <div class="bg-gray-100 w-[75%]  ml-[25%] h-full">

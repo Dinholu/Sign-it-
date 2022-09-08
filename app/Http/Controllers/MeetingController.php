@@ -12,8 +12,7 @@ use App\Models\Participant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use SebastianBergmann\Type\TrueType;
-use Illuminate\Http\Resources\MergeValue;
+
 
 class MeetingController extends Controller
 {
@@ -26,12 +25,13 @@ class MeetingController extends Controller
     {
         $meetings = Meeting::join('participants', 'meetings.id', '=', 'participants.meeting_id')
             ->where('participants.user_id', Auth::user()->id)
-            ->select('meetings.*')
+            ->orderBy('meetings.date', 'asc')
             ->get();
-
+        foreach ($meetings as $meeting) {
+            $meeting->participant = Participant::where('meeting_id', $meeting->id)->get();
+        };
         return Inertia::render('meeting/Index', [
             'meetings' => $meetings,
-            'participants' => Participant::all(),
         ]);
     }
 

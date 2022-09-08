@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Seal;
+use Inertia\Inertia;
+use App\Models\Meeting;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
+use Illuminate\Http\Response;
 
 class SealController extends Controller
 {
@@ -18,6 +20,10 @@ class SealController extends Controller
     public function index()
     {
         $seals = Seal::all();
+        foreach ($seals as $seal) {
+            $seal->meeting = Meeting::find($seal->meeting_id);
+        };
+
         return Inertia::render('seal/Index', [
             'seals' => $seals,
         ]);
@@ -53,6 +59,12 @@ class SealController extends Controller
     public function show(Seal $seal)
     {
         //
+    }
+
+    public function download(Seal $seal)
+    {
+        // $path = $seal->path;
+        // ::download($path);
     }
 
     /**
