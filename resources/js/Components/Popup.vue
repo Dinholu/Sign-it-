@@ -34,7 +34,6 @@
                 <div class="mt-4 flex flex-row justify-between">
                     <BreezeButton @click="TriggerButton">Annuler</BreezeButton>
                     <BreezeButton @click="submit" :disabled="form.processing">S'enregistrer</BreezeButton>
-
                 </div>
 
             </form>
@@ -60,7 +59,10 @@ export default {
         },
         meetingid: {
             type: Number,
-        }
+        },
+        user: {
+            type: Object,
+        },
     },
     data() {
         return {
@@ -74,8 +76,17 @@ export default {
             }),
         }
     },
+
+    mounted: function () {
+        this.form.name = this.user.name;
+        this.form.firstname = this.user.firstname;
+        this.form.email = this.user.email;
+        this.form.phone = this.user.phone;
+        this.form.ip = this.user.ip;
+    },
     methods: {
         submit() {
+            console.log(this.form);
             this.form.meeting_id = this.meetingid;
             this.form.post("/createparticipant")
 

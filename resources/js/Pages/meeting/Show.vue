@@ -9,10 +9,10 @@
             <h1 class="text-3xl text-center mb-6 font-bold">{{ meeting.title }}</h1>
 
             <h1 class="text-5xl mb-6 font-bold p-4">Vous êtes invité</h1>
-            <div class="m-auto w-fit text-left">
-                <p class="italic mb-4">{{ meeting.description }}</p>
-                <p>{{ meeting.place }}</p>
-                <p class="mb-5">{{ meeting.date }}</p>
+            <div class="m-auto w-fit max-w-[65%] text-left">
+                <p class="font-semibold mb-6 text-justify">{{ meeting.description }}</p>
+                <p class="text-center italic font-semibold">{{ meeting.place }}</p>
+                <p class="mb-5 text-center italic">{{ meeting.date }}</p>
             </div>
         </div>
 
@@ -25,7 +25,7 @@
             </BreezeButton>
         </div>
     </GuestLayout>
-    <PopupVue v-if="buttonTrigger" :meetingid="meeting.id" :TriggerButton="this.TriggerButton">
+    <PopupVue v-if="buttonTrigger" :meetingid="meeting.id" :TriggerButton="this.TriggerButton" :user="this.user">
         <h1>Vos informations</h1>
     </PopupVue>
 </template>
@@ -36,9 +36,9 @@ import { Head } from '@inertiajs/inertia-vue3';
 import { Link } from '@inertiajs/inertia-vue3';
 import GuestLayout from '@/Layouts/Guest.vue';
 import BreezeButton from '@/Components/Button.vue';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { faBars } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { DateTime } from "luxon";
 
 export default {
@@ -59,7 +59,8 @@ export default {
     data() {
         return {
             buttonTrigger: false,
-            datemeeting: null
+            datemeeting: null,
+            user: this.$page.props.auth.user
         }
     },
 

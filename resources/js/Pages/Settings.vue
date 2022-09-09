@@ -46,7 +46,7 @@
                     </div>
                     <div class="mt-12 text-right">
                         <BreezeButton class="ml-4" :disabled="form.processing">
-                            Modifier la réunion
+                            Modifier vos informations
                         </BreezeButton>
                     </div>
                 </form>

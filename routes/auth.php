@@ -56,4 +56,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('editUser', [AuthenticatedSessionController::class, 'edit'])
         ->name('editUser');
+    Route::put('editUser', [AuthenticatedSessionController::class, 'update'])
+        ->name('editUser');
 });

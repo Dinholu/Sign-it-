@@ -15,6 +15,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col mb-5">
                 <div v-if="seals.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
                     <div class="" v-for=' seal in filteredSeals' :key="seal.id">
+
                         <div class="p-6 bg-white sm:rounded-sm  border-x-4 mb-5 m-2 flex justify-between ">
                             <div>
                                 <h2 class="block text-xl font-semibold my-auto text-[#137C8B]">{{ seal.meeting.title }}
@@ -72,10 +73,7 @@ export default {
         }
     },
     methods: {
-        download(path) {
-            console.log(path);
-            window.open(path, '_blank');
-        }
+
 
     }
 }</script>

@@ -23,13 +23,33 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        $meetings = Meeting::join('participants', 'meetings.id', '=', 'participants.meeting_id')
-            ->where('participants.user_id', Auth::user()->id)
-            ->orderBy('meetings.date', 'asc')
-            ->get();
-        foreach ($meetings as $meeting) {
-            $meeting->participant = Participant::where('meeting_id', $meeting->id)->get();
-        };
+        // $meetings = Meeting::join('participants', 'meetings.id', '=', 'participants.meeting_id')
+        //     ->where('participants.user_id', Auth::user()->id)
+        //     ->orderBy('meetings.date', 'asc')
+        //     ->get();
+
+
+        // foreach ($meetings as $meeting) {
+        //     $meeting->participant;
+        // };
+
+        // return Inertia::render('meeting/Index', [
+        //     'meetings' => $meetings,
+        // ]);
+        $meetings = Meeting::paginate(2)->map(fn ($meeting) => [
+            'id' => $meeting->id,
+            'title' => $meeting->title,
+            'description' => $meeting->description,
+            'place' => $meeting->place,
+            'date' => $meeting->date,
+            'closing' => $meeting->closing,
+            'privilege' => $meeting->privilege,
+            'slug' => $meeting->slug,
+            'statut' => $meeting->statut,
+            'user_id' => $meeting->user_id,
+            'participant' => $meeting->participant,
+        ]);
+
         return Inertia::render('meeting/Index', [
             'meetings' => $meetings,
         ]);
@@ -94,7 +114,16 @@ class MeetingController extends Controller
                     return redirect()->route('index')->with('message', 'Vous êtes déjà inscrit à cette réunion');
                 }
             }
+        } else if ($meeting->privilege == 'private') {
+            if (Auth::check()) {
+                return Inertia::render('meeting/Show', [
+                    'meeting' => $meeting,
+                ]);
+            } else {
+                return redirect()->route('index')->with('message', 'Vous devez être connecté pour accéder à cette réunion');
+            }
         }
+
 
         return Inertia::render('meeting/Show', [
             'meeting' => $meeting,

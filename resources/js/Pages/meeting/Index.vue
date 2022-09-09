@@ -39,16 +39,17 @@
 
                 <div v-if="meetings.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
 
-                    <meetingItemsVue class="mb-5" v-for=' meeting in meetingFiltered' :key="meeting.id"
-                        :meeting="meeting" :participants="participants"></meetingItemsVue>
+                    <meetingItemsVue class="mb-5" v-for='meeting in meetingFiltered' :key="meeting.id"
+                        :meeting="meeting">
+                    </meetingItemsVue>
+
                 </div>
 
-                <div v-else class="bg-white overflow-hidden shadow-sm sm:rounded-lg border-b border-gray-200">
+                <div v-else class=" bg-white overflow-hidden shadow-sm sm:rounded-lg border-b border-gray-200">
                     <h2 class="p-6 block"> Vous n'avez pas de réunions. Cliquez
                         <Link :href="route('createmeeting')">ici</Link> pour ajouter une réunion
                     </h2>
                 </div>
-
 
             </div>
         </div>
@@ -73,10 +74,7 @@ export default {
     props: {
         meetings: {
             type: Object,
-        },
-        participants: {
-            type: Object,
-        },
+        }
     },
     data() {
         return {
@@ -103,7 +101,8 @@ export default {
         meetingFiltered() {
             if (!this.searchbar) {
                 this.list = this.meetings;
-            } else {
+            }
+            else {
                 let searchCleaned = this.searchbar.toLowerCase().trim();
                 this.list = this.meetings.filter(meeting => {
                     if ((meeting.title.toLowerCase().includes(searchCleaned) ||
@@ -121,6 +120,7 @@ export default {
                     if (meeting.statut == 'open') {
                         return meeting;
                     }
+
                 });
             } else if (this.picked == 'close') {
                 return this.list.filter(meeting => {
@@ -138,4 +138,5 @@ export default {
 
 </script>
 <style>
+
 </style>

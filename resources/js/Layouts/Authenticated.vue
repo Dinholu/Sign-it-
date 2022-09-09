@@ -20,7 +20,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
                             :class="{ 'text-white underline text-bold': $page.url == '/index' }">
                         <font-awesome-icon icon=" fa-solid fa-house" class="pr-12 text-2xl" />Vos réunion</Link>
                     </li>
-                    <li class="transition ease-in-out hover:text-white text-bold duration-500">
+                    <li v-if="$page.props.auth.user.is_admin == 1"
+                        class="transition ease-in-out hover:text-white text-bold duration-500">
                         <Link :href="route('createmeeting')"
                             :class="{ 'text-white underline text-bold': $page.url == '/createmeeting' }">
                         <font-awesome-icon icon=" fa-solid fa-handshake" class="pr-12 text-2xl" />Ajouter une réunion

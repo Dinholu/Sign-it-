@@ -35,18 +35,19 @@ class ParticipantController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->validate([
             'name' => 'required|string',
             'firstname' => 'required|string',
             'email' => 'required|string|email',
-            'phone' => 'required|numeric',
+            'phone' => 'required|string',
             'ip' => 'required|string',
             'meeting_id' => 'required|integer'
         ]);
 
         Participant::create($data);
 
-        return redirect()->route('index');
+        return redirect('/index');
     }
 
     /**

@@ -9,6 +9,7 @@ use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class SealController extends Controller
 {
@@ -22,6 +23,8 @@ class SealController extends Controller
         $seals = Seal::all();
         foreach ($seals as $seal) {
             $seal->meeting = Meeting::find($seal->meeting_id);
+            // $seal->meeting->participants = json_decode($seal->meeting->participants);
+
         };
 
         return Inertia::render('seal/Index', [
@@ -63,8 +66,10 @@ class SealController extends Controller
 
     public function download(Seal $seal)
     {
-        // $path = $seal->path;
-        // ::download($path);
+
+
+        $path = $seal->path;
+        return response()->download($path);
     }
 
     /**

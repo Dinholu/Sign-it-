@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|numeric',
+            'phone' => 'required|string',
             'ip' => 'required|string',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
