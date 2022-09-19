@@ -37,7 +37,7 @@
                     {{ $page.props.flash.message }}
                 </div>
 
-                <div v-if="meetings.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
+                <div v-if="meetingFiltered.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
 
                     <meetingItemsVue class="mb-5" v-for='meeting in meetingFiltered' :key="meeting.id"
                         :meeting="meeting">
@@ -50,7 +50,6 @@
                         <Link :href="route('createmeeting')">ici</Link> pour ajouter une réunion
                     </h2>
                 </div>
-
             </div>
         </div>
     </BreezeAuthenticatedLayout>
@@ -61,19 +60,19 @@ import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import BreezeInput from '@/Components/Input.vue';
 import meetingItemsVue from '@/Components/meetingItems.vue';
-import { watch } from '@vue/runtime-core';
 export default {
     components: {
         BreezeAuthenticatedLayout,
         Head,
         BreezeInput,
         Link,
-        meetingItemsVue
+        meetingItemsVue,
     },
     name: 'Index',
     props: {
         meetings: {
             type: Object,
+            default: () => ({}),
         }
     },
     data() {
@@ -101,6 +100,7 @@ export default {
         meetingFiltered() {
             if (!this.searchbar) {
                 this.list = this.meetings;
+                console.log(this.list)
             }
             else {
                 let searchCleaned = this.searchbar.toLowerCase().trim();
@@ -129,7 +129,6 @@ export default {
                     }
                 });
             }
-
             return this.list;
         },
     },

@@ -15,4 +15,9 @@ class Seal extends Model
     {
         return $this->hasOne(Meeting::class, 'meeting_id');
     }
+
+    public function participants()
+    {
+        return $this->hasMany(Participant::class, 'meeting_id');
+    }
 }

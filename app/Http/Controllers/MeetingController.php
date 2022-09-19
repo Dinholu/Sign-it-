@@ -23,32 +23,8 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        // $meetings = Meeting::join('participants', 'meetings.id', '=', 'participants.meeting_id')
-        //     ->where('participants.user_id', Auth::user()->id)
-        //     ->orderBy('meetings.date', 'asc')
-        //     ->get();
 
-
-        // foreach ($meetings as $meeting) {
-        //     $meeting->participant;
-        // };
-
-        // return Inertia::render('meeting/Index', [
-        //     'meetings' => $meetings,
-        // ]);
-        $meetings = Meeting::paginate(2)->map(fn ($meeting) => [
-            'id' => $meeting->id,
-            'title' => $meeting->title,
-            'description' => $meeting->description,
-            'place' => $meeting->place,
-            'date' => $meeting->date,
-            'closing' => $meeting->closing,
-            'privilege' => $meeting->privilege,
-            'slug' => $meeting->slug,
-            'statut' => $meeting->statut,
-            'user_id' => $meeting->user_id,
-            'participant' => $meeting->participant,
-        ]);
+        $meetings = Meeting::with(["participant"])->get();
 
         return Inertia::render('meeting/Index', [
             'meetings' => $meetings,
@@ -201,7 +177,7 @@ class MeetingController extends Controller
         $fileHash = sha1_file($pathOutput);
 
         Seal::create([
-            'path' => $pathOutput,
+            'path' => $meeting->slug . '.pdf',
             'token' => $token,
             'sha1' => $fileHash,
             'meeting_id' => $meeting->id,

@@ -6,10 +6,12 @@ use App\Models\Seal;
 use Inertia\Inertia;
 use App\Models\Meeting;
 use setasign\Fpdi\Fpdi;
+use App\Models\Participant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SealController extends Controller
 {
@@ -23,8 +25,6 @@ class SealController extends Controller
         $seals = Seal::all();
         foreach ($seals as $seal) {
             $seal->meeting = Meeting::find($seal->meeting_id);
-            // $seal->meeting->participants = json_decode($seal->meeting->participants);
-
         };
 
         return Inertia::render('seal/Index', [
@@ -68,8 +68,8 @@ class SealController extends Controller
     {
 
 
-        $path = $seal->path;
-        return response()->download($path);
+
+        return Storage::response(storage_path('app/pdf/' . $seal->path), $seal->name);;
     }
 
     /**

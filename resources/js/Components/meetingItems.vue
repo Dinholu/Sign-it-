@@ -1,4 +1,5 @@
 <template>
+
     <div class="p-6 bg-white sm:rounded-sm  border-x-4 transition ease-in-out duration-800"
         :class="meeting.statut == 'open' ? 'border-emerald-200' : 'border-red-200'">
         <div @click="displayMore = !displayMore" class="flex flex-row justify-between cursor-pointer">
@@ -51,7 +52,6 @@
                         :href="'deletemeeting/' + meeting.slug" method="DELETE" as="button">Supprimer la
                     réunion
                     </Link>
-                    {{meeting.title}}
                 </div>
             </div>
         </Transition>

@@ -40,6 +40,9 @@ Route::get('/', function () {
 
 
 Route::get('/index', [MeetingController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
+Route::get('/index/search', [MeetingController::class, 'index'])->middleware(['auth', 'verified'])->name('index.search');
+
+// http://test.com/index?picked=all
 
 # Route pour créer un nouveau meeting
 route::get('/createmeeting', [MeetingController::class, 'create'])->name('createmeeting')->middleware(['auth', 'verified']);
