@@ -34,8 +34,8 @@
                     </div>
                     <div class="w-[45%]">
                         <BreezeLabel for="closing" value="Date de cloture" />
-                        <BreezeInput v-model="form.closing" id="closing" type="date" class="mt-1 block w-full" required
-                            autocomplete="DateClosing" />
+                        <BreezeInput v-model="form.closing" id="closing" type="datetime-local" class="mt-1 block w-full"
+                            required autocomplete="DateClosing" />
                         <BreezeInputError class="mt-2" />
                     </div>
                 </div>

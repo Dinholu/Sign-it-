@@ -20,7 +20,10 @@
                             <div>
                                 <h2 class="block text-xl font-semibold my-auto text-[#137C8B]">{{ seal.meeting.title }}
                                 </h2>
-                                <p>{{ seal.meeting.date }}</p>
+                                <p>Le {{new Date(seal.meeting.date).toLocaleDateString('fr-FR', {
+                                weekday: 'long', year: 'numeric', month: 'long', day:
+                                'numeric'})}} à {{new Date(seal.meeting.date).toLocaleTimeString('fr-FR', {
+                                    hour: '2-digit', minute: '2-digit'})}}</p>
                             </div>
                             <a :href="'/seal/' + seal.id">
                                 <font-awesome-icon
@@ -70,8 +73,9 @@ export default {
             return this.seals.filter((seal) => {
                 return seal.meeting.title.toLowerCase().includes(this.searchbar.toLowerCase());
             });
-        }
+        },
     },
+
     methods: {
 
 

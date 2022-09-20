@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('place');
             $table->dateTime('date');
-            $table->date('closing');
+            $table->dateTime('closing');
             $table->string('privilege');
             $table->string('slug')->unique();
             $table->string('statut')->default('open');

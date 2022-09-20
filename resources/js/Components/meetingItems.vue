@@ -3,38 +3,46 @@
     <div class="p-6 bg-white sm:rounded-sm  border-x-4 transition ease-in-out duration-800"
         :class="meeting.statut == 'open' ? 'border-emerald-200' : 'border-red-200'">
         <div @click="displayMore = !displayMore" class="flex flex-row justify-between cursor-pointer">
-            <h2 class="block text-xl font-semibold my-auto text-[#137C8B]">{{ meeting.title }}</h2>
+            <h2 class="block text-2xl font-semibold my-auto text-[#137C8B]">{{ meeting.title }} <span>
+                    <font-awesome-icon @click="copy()" class="text-[#137C8B]  text-xl pointer ml-5"
+                        icon="fa-solid fa-copy" />
+                </span></h2>
             <div class="flex space-x-5 ">
                 <div>
-                    <h2 class="m-auto font-semibold text-[#137C8B]">Le {{
-                    meeting.date.toLocaleString('fr')
-                    }}</h2>
+                    <h2 class="m-auto font-semibold text-[#137C8B]">{{
+                    meetingDate }} à {{meetingHour}}</h2>
+
                 </div>
             </div>
         </div>
         <Transition>
-            <div v-if="displayMore" class=" mt-5 flex flex-row justify-between text-[#344d59]">
+            <div v-if="displayMore" class=" mt-8 px-5 flex flex-row justify-between text-[#344d59]">
 
-                <div class="">
-                    <button @click="copy()"
-                        class="text-[#137C8B] hover:text-[#344d59] transition ease-in-out duration-500 font-semibold text-l">Le
-                        lien de votre réunion
-                        <font-awesome-icon
-                            class="text-[#137C8B] hover:text-[#344d59] transition ease-in-out duration-500"
-                            icon="fa-solid fa-copy" />
-                    </button>
-                    <p class="font-semibold mt-5">{{ meeting.description }}</p>
-                    <h2 class="italic">Lieu : {{ meeting.place }}</h2>
-                    <p class="mt-5">Participants : </p>
-                    <ul v-for="participant in meeting.participant" :key="participant.id">
-                        <li class="ml-5 font-bold text-[#137C8B]" v-if="participant.user_id == meeting.user_id">{{
-                        participant.name
-                        +
-                        ' ' + participant.firstname + ' (Créateur)'
-                        }}</li>
+                <div class="flex flex-col gap-8 ">
+                    <div class="flex flex-row gap-5 items-center">
+                        <font-awesome-icon icon="fa-solid fa-pen-to-square" class="text-[#137C8B]  text-2xl" />
+                        <p class="text-[#137C8B]  font-semibold text-l ">{{ meeting.description }}</p>
+                    </div>
+                    <div class="flex flex-row gap-5 items-center">
+                        <font-awesome-icon class="text-[#137C8B]  text-2xl" icon="fa-solid fa-location-dot" />
+                        <h2 class="text-[#137C8B]  font-semibold text-l">Lieu : <span> {{ meeting.place }}</span></h2>
+                    </div>
+                    <div class="flex flex-row gap-5 items-center">
+                        <font-awesome-icon class="text-[#137C8B]  text-2xl" icon="fa-solid fa-user-check" />
+                        <div>
+                            <h2 class="text-[#137C8B]  font-semibold text-l">Participants : </h2>
+                            <ul v-for="participant in meeting.participant" :key="participant.id">
+                                <li class="ml-5 font-bold text-[#137C8B]" v-if="participant.user_id == meeting.user_id">
+                                    {{
+                                    participant.name
+                                    +
+                                    ' ' + participant.firstname + ' (Créateur)'
+                                    }}</li>
 
-                        <li class="ml-5" v-else>{{ participant.name + ' ' + participant.firstname }}</li>
-                    </ul>
+                                <li class="ml-5" v-else>{{ participant.name + ' ' + participant.firstname }}</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="w-fit space-y-5 mt-3">
 
@@ -56,7 +64,7 @@
         </Transition>
     </div>
 </template>
-<script lang="ts">
+<script >
 import { Link } from '@inertiajs/inertia-vue3';
 import { Method } from '@inertiajs/inertia';
 import useClipboard from 'vue-clipboard3'
@@ -75,10 +83,24 @@ export default {
     data() {
         return {
             displayMore: false,
+            date: new Date(),
         };
     },
+    computed: {
+        meetingDate() {
+            this.meeting.date = new Date(this.meeting.date);
+            return this.meeting.date.toLocaleDateString('fr-FR', {
+                weekday: 'long', year: 'numeric', month: 'long', day:
+                    'numeric'
 
-    setup() {
+            });
+        },
+        meetingHour() {
+            this.meeting.date = new Date(this.meeting.date);
+            return this.meeting.date.toLocaleTimeString('fr-FR', {
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
     },
     methods: {
         copy() {

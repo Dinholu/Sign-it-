@@ -10,7 +10,7 @@
             <h1 class="text-white text-9xl mt-14 font-bold">Sign-it</h1>
             <p class="text-white text-3xl mt-8 m-5 grow">Votre application de gestion de réunions</p>
 
-            <h3 class="text-sm text-italic my-14 text-white"> Crée par T-Med</h3>
+            <h3 class="text-sm text-italic my-14 text-white"> Créé par T-Med</h3>
         </div>
         <HellosVG class="truncate" />
     </div>

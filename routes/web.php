@@ -68,6 +68,8 @@ Route::get('/seal/{seal:id}', [SealController::class, 'download'])->middleware([
 
 
 
-
+Route::get('/test', function () {
+    return now();
+});
 
 require __DIR__ . '/auth.php';

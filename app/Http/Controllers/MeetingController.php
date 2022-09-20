@@ -148,23 +148,23 @@ class MeetingController extends Controller
         $size = $pdf->getTemplateSize($tplId);
         $pdf->useTemplate($tplId, 1, 1, $size['width'], $size['height'], TRUE);
 
-        $pdf->SetXY(15, 20);
+        $pdf->SetXY(15, 50);
         $pdf->SetFont("");
         $pdf->Write(15, 'Reunion du ' . $meeting->date);
         $pdf->SetFont('Arial', 'B', 14);
-        $pdf->SetXY(15, 30);
+        $pdf->SetXY(15, 60);
         $pdf->Write(15, 'Ordre du jour : ' . iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $meeting->title));
-        $pdf->SetXY(15, 40);
+        $pdf->SetXY(15, 70);
         $pdf->SetFont("");
 
         $pdf->Write(15, 'Lieu : ' . iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $meeting->place));
-        $pdf->SetXY(15, 60);
-        $pdf->Write(15, 'Description : ' . iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $meeting->description));
-        $pdf->SetXY(15, 70);
-        $pdf->Write(15, 'Date de cloture : ' . $meeting->closing);
-        $pdf->SetXY(15, 80);
-        $pdf->Write(15, 'Participants:');
         $pdf->SetXY(15, 90);
+        $pdf->Write(15, 'Description : ' . iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $meeting->description));
+        $pdf->SetXY(15, 100);
+        $pdf->Write(15, 'Date de cloture : ' . $meeting->closing);
+        $pdf->SetXY(15, 110);
+        $pdf->Write(15, 'Participants:');
+        $pdf->SetXY(15, 120);
         foreach ($meeting->participant as $participant) {
             $pdf->Write(15, iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $participant->name . ' ' . $participant->firstname));
             $pdf->SetXY(15, $pdf->GetY() + 10);
@@ -197,7 +197,8 @@ class MeetingController extends Controller
             'privilege' => 'required|string',
         ]);
         $meeting->update($attributes);
-        return back();
+        return
+            redirect()->route('index')->with('message', 'La réunion a été modifiée');;
     }
 
     /**

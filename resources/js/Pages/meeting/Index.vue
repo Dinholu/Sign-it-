@@ -46,12 +46,12 @@
                 </div>
 
                 <div v-else class=" bg-white overflow-hidden shadow-sm sm:rounded-lg border-b border-gray-200">
-                    <h2 class="p-6 block"> Vous n'avez pas de réunions. Cliquez
-                        <Link :href="route('createmeeting')">ici</Link> pour ajouter une réunion
+                    <h2 class="p-6 block"> Vous n'avez pas de réunions.
                     </h2>
                 </div>
             </div>
         </div>
+
     </BreezeAuthenticatedLayout>
 </template>
 
@@ -101,27 +101,25 @@ export default {
             this.setTimeout()
         }
     },
+    mounted() {
+        this.meetings.forEach(meeting => {
+            return meeting.participant.forEach(participant => {
+                if (participant.user_id == this.$page.props.auth.user.id) {
+                    this.list2.push(meeting)
+                }
+            })
+        })
+    },
     computed: {
-        // isParticipate() {
-        //     this.meetings.forEach(meeting => {
-        //         meeting.participant.forEach(participant => {
-        //             if (participant.id == this.$page.props.auth.user.id) {
-        //                 this.list2.push(meeting)
-        //             }
-        //         })
-        //     })
-        //     return this.list2
-        // },
 
         meetingFiltered() {
 
             if (!this.searchbar) {
-                this.list = this.meetings;
-
+                this.list = this.list2;
             }
             else {
                 let searchCleaned = this.searchbar.toLowerCase().trim();
-                this.list = this.meetings.filter(meeting => {
+                this.list = this.list2.filter(meeting => {
                     if ((meeting.title.toLowerCase().includes(searchCleaned) ||
                         meeting.description.toLowerCase().includes(searchCleaned)) ||
                         meeting.place.toLowerCase().includes(searchCleaned)) {
@@ -131,15 +129,15 @@ export default {
 
             }
             if (this.picked == 'All') {
+                this.list = this.list2
                 return this.list;
             } else if (this.picked == 'open') {
                 return this.list.filter(meeting => {
                     if (meeting.statut == 'open') {
                         return meeting;
                     }
-
                 });
-            } else if (this.picked == 'close') {
+            } else {
                 return this.list.filter(meeting => {
                     if (meeting.statut == 'close') {
                         return meeting;
