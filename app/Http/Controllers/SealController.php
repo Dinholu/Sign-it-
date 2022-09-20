@@ -66,10 +66,7 @@ class SealController extends Controller
 
     public function download(Seal $seal)
     {
-
-
-
-        return Storage::response(storage_path('app/pdf/' . $seal->path), $seal->name);;
+        return Storage::download('pdf/' . $seal->path, $seal->name);
     }
 
     /**

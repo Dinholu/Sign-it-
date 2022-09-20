@@ -40,7 +40,7 @@
                 <div v-if="meetingFiltered.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
 
                     <meetingItemsVue class="mb-5" v-for='meeting in meetingFiltered' :key="meeting.id"
-                        :meeting="meeting">
+                        :meeting="meeting" @copied="success()">
                     </meetingItemsVue>
 
                 </div>
@@ -81,6 +81,7 @@ export default {
             searchbar: '',
             list: [],
             picked: 'open',
+            list2: [],
         }
     },
 
@@ -94,13 +95,29 @@ export default {
             setTimeout(() => {
                 this.$page.props.flash.message = null;
             }, 3000);
+        },
+        success() {
+            this.$page.props.flash.message = "Copié dans le presse papier !"
+            this.setTimeout()
         }
     },
     computed: {
+        // isParticipate() {
+        //     this.meetings.forEach(meeting => {
+        //         meeting.participant.forEach(participant => {
+        //             if (participant.id == this.$page.props.auth.user.id) {
+        //                 this.list2.push(meeting)
+        //             }
+        //         })
+        //     })
+        //     return this.list2
+        // },
+
         meetingFiltered() {
+
             if (!this.searchbar) {
                 this.list = this.meetings;
-                console.log(this.list)
+
             }
             else {
                 let searchCleaned = this.searchbar.toLowerCase().trim();

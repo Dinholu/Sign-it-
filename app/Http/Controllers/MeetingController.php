@@ -24,7 +24,7 @@ class MeetingController extends Controller
     public function index()
     {
 
-        $meetings = Meeting::with(["participant"])->get();
+        $meetings = Meeting::orderBy('date', 'asc')->with(["participant"])->get();
 
         return Inertia::render('meeting/Index', [
             'meetings' => $meetings,

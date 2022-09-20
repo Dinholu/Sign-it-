@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="mt-4 flex flex-row justify-between">
-                    <BreezeButton @click="TriggerButton">Annuler</BreezeButton>
+                    <BreezeButton @click.prevent="TriggerButton" type="reset">Annuler</BreezeButton>
                     <BreezeButton @click="submit" :disabled="form.processing">S'enregistrer</BreezeButton>
                 </div>
 
@@ -78,11 +78,14 @@ export default {
     },
 
     mounted: function () {
-        this.form.name = this.user.name;
-        this.form.firstname = this.user.firstname;
-        this.form.email = this.user.email;
-        this.form.phone = this.user.phone;
-        this.form.ip = this.user.ip;
+        if (this.user) {
+            this.form.name = this.user.name;
+            this.form.firstname = this.user.firstname;
+            this.form.email = this.user.email;
+            this.form.phone = this.user.phone;
+            this.form.ip = this.user.ip;
+        }
+
     },
     methods: {
         submit() {

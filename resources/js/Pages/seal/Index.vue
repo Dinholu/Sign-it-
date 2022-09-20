@@ -13,7 +13,7 @@
         </template>
         <div class="bg-gray-100 m-2 py-12 px-8">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col mb-5">
-                <div v-if="seals.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
+                <div v-if="filteredSeals.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
                     <div class="" v-for=' seal in filteredSeals' :key="seal.id">
 
                         <div class="p-6 bg-white sm:rounded-sm  border-x-4 mb-5 m-2 flex justify-between ">
@@ -22,11 +22,11 @@
                                 </h2>
                                 <p>{{ seal.meeting.date }}</p>
                             </div>
-                            <Link :href="'/seal/' + seal.id">
-                            <font-awesome-icon
-                                class="transition ease-in-out text-4xl text-[#137C8B] hover:text-[#344d59] duration-300 "
-                                icon="fa-solid fa-download" />
-                            </Link>
+                            <a :href="'/seal/' + seal.id">
+                                <font-awesome-icon
+                                    class="transition ease-in-out text-4xl text-[#137C8B] hover:text-[#344d59] duration-300 "
+                                    icon="fa-solid fa-download" />
+                            </a>
                         </div>
                     </div>
                 </div>

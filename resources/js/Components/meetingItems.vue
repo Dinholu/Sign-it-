@@ -14,24 +14,23 @@
         </div>
         <Transition>
             <div v-if="displayMore" class=" mt-5 flex flex-row justify-between text-[#344d59]">
+
                 <div class="">
-                    <p class="font-semibold ">{{ meeting.description }}</p>
+                    <button @click="copy()"
+                        class="text-[#137C8B] hover:text-[#344d59] transition ease-in-out duration-500 font-semibold text-l">Le
+                        lien de votre réunion
+                        <font-awesome-icon
+                            class="text-[#137C8B] hover:text-[#344d59] transition ease-in-out duration-500"
+                            icon="fa-solid fa-copy" />
+                    </button>
+                    <p class="font-semibold mt-5">{{ meeting.description }}</p>
                     <h2 class="italic">Lieu : {{ meeting.place }}</h2>
-
-                    <p>Le lien de votre réunion :
-                        <Link :href="'/meetings/' + meeting.slug" class="underline text-[#137C8B] m-auto text-sm">
-                        http://tmed-signit.test/meetings/{{ meeting.slug }}</Link>
-                    </p>
-                    <div @click="copy()">
-                        <font-awesome-icon icon="fa-solid fa-copy" />
-                    </div>
-
-                    <p>Participants : </p>
+                    <p class="mt-5">Participants : </p>
                     <ul v-for="participant in meeting.participant" :key="participant.id">
                         <li class="ml-5 font-bold text-[#137C8B]" v-if="participant.user_id == meeting.user_id">{{
                         participant.name
                         +
-                        ' ' + participant.firstname + ' (Admin)'
+                        ' ' + participant.firstname + ' (Créateur)'
                         }}</li>
 
                         <li class="ml-5" v-else>{{ participant.name + ' ' + participant.firstname }}</li>
@@ -57,43 +56,42 @@
         </Transition>
     </div>
 </template>
-<script>
+<script lang="ts">
 import { Link } from '@inertiajs/inertia-vue3';
 import { Method } from '@inertiajs/inertia';
 import useClipboard from 'vue-clipboard3'
-
+const { toClipboard } = useClipboard()
 
 export default {
-    name: 'meetingItemsVue',
-    components: {
-        Link
-    },
+
+    components: { Link },
+    emit: ['copied'],
     props: {
         meeting: {
             type: Object,
+            required: true,
         },
-
     },
     data() {
         return {
             displayMore: false,
-            navigator: navigator
-        }
+        };
     },
 
-
+    setup() {
+    },
     methods: {
         copy() {
-            // useClipboard.copyText('http://tmed-signit.test/meetings/' + this.meeting.slug)
+            try {
+                toClipboard('http://tmed-signit.test/meetings/' + this.meeting.slug)
+                console.log('Copied to clipboard')
+                this.$emit('copied', 'Copié dans le presse papier')
+            } catch (e) {
+                console.error(e)
+            }
         }
+
     }
-
-
-
-
-
-
-
 }
 
 </script>
