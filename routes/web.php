@@ -67,9 +67,11 @@ Route::get('/seal/{seal:id}', [SealController::class, 'download'])->middleware([
 // Route::post('/hello', [SealController::class, "store"]);
 
 
-
 Route::get('/test', function () {
-    return now();
-});
+    return Inertia::render('Test');
+})->name('test');
+
+
+
 
 require __DIR__ . '/auth.php';

@@ -15,17 +15,18 @@
                 </div>
             </div>
         </div>
-        <Transition>
+        <Transition mode="out-in">
             <div v-if="displayMore" class=" mt-8 px-5 flex flex-row justify-between text-[#344d59]">
-
                 <div class="flex flex-col gap-8 ">
+
                     <div class="flex flex-row gap-5 items-center">
                         <font-awesome-icon icon="fa-solid fa-pen-to-square" class="text-[#137C8B]  text-2xl" />
                         <p class="text-[#137C8B]  font-semibold text-l ">{{ meeting.description }}</p>
                     </div>
                     <div class="flex flex-row gap-5 items-center">
                         <font-awesome-icon class="text-[#137C8B]  text-2xl" icon="fa-solid fa-location-dot" />
-                        <h2 class="text-[#137C8B]  font-semibold text-l">Lieu : <span> {{ meeting.place }}</span></h2>
+                        <h2 class="text-[#137C8B]  font-semibold text-l">Lieu : <span> {{ meeting.place }}</span>
+                        </h2>
                     </div>
                     <div class="flex flex-row gap-5 items-center">
                         <font-awesome-icon class="text-[#137C8B]  text-2xl" icon="fa-solid fa-user-check" />
@@ -59,6 +60,7 @@
                         :href="'deletemeeting/' + meeting.slug" method="DELETE" as="button">Supprimer la
                     réunion
                     </Link>
+
                 </div>
             </div>
         </Transition>
@@ -128,5 +130,11 @@ export default {
 .v-leave-to {
     opacity: 0;
     transition: all 0.5s ease;
+}
+
+#default {
+    transition: max-height 0.25s ease-out;
+    width: 20px;
+    transition-property: width;
 }
 </style>

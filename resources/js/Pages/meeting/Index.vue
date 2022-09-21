@@ -36,7 +36,6 @@
                     class="fixed bottom-5 bg-[#344D59] px-8 py-4 rounded-2xl text-white font-bold right-8">
                     {{ $page.props.flash.message }}
                 </div>
-
                 <div v-if="meetingFiltered.length > 0" class="overflow-hidden shadow-sm sm:rounded-lg m-2">
 
                     <meetingItemsVue class="mb-5" v-for='meeting in meetingFiltered' :key="meeting.id"
@@ -87,7 +86,6 @@ export default {
 
     mounted() {
         this.setTimeout()
-        console.log(this.searchbar)
     },
 
     methods: {

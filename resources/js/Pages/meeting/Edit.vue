@@ -28,26 +28,20 @@
                 <div class="mt-4 flex flex-row w-full justify-between">
                     <div class="w-[45%]">
                         <BreezeLabel for="date" value="Date de la réunion" />
-                        <BreezeInput v-model="form.date" id="date" type="datetime-local" class="mt-1 block w-full"
-                            required autocomplete="DateMeeting" />
+                        <BreezeInput v-model="form.date" id="date" type="datetime-local" @change="editclosing"
+                            class="mt-1 block w-full" required autocomplete="DateMeeting" />
                         <BreezeInputError class="mt-2" />
                     </div>
                     <div class="w-[45%]">
-                        <BreezeLabel for="closing" value="Date de cloture" />
-                        <BreezeInput v-model="form.closing" id="closing" type="datetime-local" class="mt-1 block w-full"
-                            required autocomplete="DateClosing" />
+                        <BreezeLabel for="privilege" value="Privileges" />
+                        <select v-model="form.privilege"
+                            class="mt-1 block w-full border-gray-300 focus:border-[#137C8B] focus:ring focus:ring-[#137C8B] focus:ring-opacity-50 rounded-md shadow-sm"
+                            name="privilege" id="privilege">
+                            <option value="public">Public</option>
+                            <option value="private">Privée</option>
+                        </select>
                         <BreezeInputError class="mt-2" />
                     </div>
-                </div>
-                <div class="mt-4">
-                    <BreezeLabel for="privilege" value="Privileges" />
-                    <select v-model="form.privilege"
-                        class="mt-1 block w-full border-gray-300 focus:border-[#137C8B] focus:ring focus:ring-[#137C8B] focus:ring-opacity-50 rounded-md shadow-sm"
-                        name="privilege" id="privilege">
-                        <option value="public">Public</option>
-                        <option value="private">Privée</option>
-                    </select>
-                    <BreezeInputError class="mt-2" />
                 </div>
                 <div class="mt-12 text-right">
                     <BreezeButton class="ml-4" :disabled="form.processing">
@@ -113,6 +107,14 @@ export default {
     },
 
     methods: {
+        editclosing() {
+            console.log(this.form.date);
+            let close = new Date(this.form.date);
+            close.setHours(close.getHours() + 23);
+            this.form.closing = close.getFullYear() + '-' + (close.getMonth() + 1) + '-' + close.getDate() + 'T' + close.getHours() + ':' + close.getMinutes();
+            console.log(this.form.closing);
+        },
+
         submit() {
             this.form.put('/editmeeting/' + this.meeting.slug);
         }

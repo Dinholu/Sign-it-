@@ -14,6 +14,10 @@ Dans le fichier du projet, Après avoir modifier le fichier `.env.example` en `.
 - `npm install `
 - `npm run dev`
 
+Une fois le projet installer et la base de données mise en place l'application il faut lancer le scheduler de cette facon : 
+- `php artisan schedule:work`
+  
+
 ## Interfaces 
 
 ### Global Interface 
