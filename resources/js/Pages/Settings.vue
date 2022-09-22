@@ -4,7 +4,7 @@
     <BreezeAuthenticatedLayout class="">
         <template #header>
             <div>
-                <h2 class="font-semibold text-xl text-[#344D59] leading-tight ">
+                <h2 class="font-semibold text-2xl text-[#344D59] leading-tight ">
                     Modifiez vos informations
                 </h2>
             </div>
@@ -16,32 +16,32 @@
                         <BreezeLabel for="name" value="Votre Nom" />
                         <BreezeInput v-model="form.name" id="name" type="text" class="mt-1 block w-full" required
                             autofocus autocomplete="Votre nom" />
-                        <BreezeInputError class="mt-2" />
+                        <BreezeInputError class="mt-2" :message="form.errors.name" />
                     </div>
                     <div class="mt-4">
                         <BreezeLabel for="firstname" value="Votre prénom" />
                         <BreezeInput v-model="form.firstname" id="firstname" type="text" class="mt-1 block w-full"
                             required autocomplete="Votre prénom" />
-                        <BreezeInputError class="mt-2" />
+                        <BreezeInputError class="mt-2" :message="form.errors.firstname" />
                     </div>
                     <div class="mt-4">
                         <BreezeLabel for="email" value="Votre email" />
                         <BreezeInput v-model="form.email" id="email" type="text" class="mt-1 block w-full" required
                             autocomplete="Votre email" />
-                        <BreezeInputError class="mt-2" />
+                        <BreezeInputError class="mt-2" :message="form.errors.email" />
                     </div>
                     <div class="mt-4 flex flex-row w-full justify-between">
                         <div class="w-[45%]">
                             <BreezeLabel for="phone" value="Votre numéro de telephone" />
                             <BreezeInput v-model="form.phone" id="phone" type="text" class="mt-1 block w-full" required
                                 autocomplete="Votre numero de telephone" />
-                            <BreezeInputError class="mt-2" />
+                            <BreezeInputError class="mt-2" :message="form.errors.phone" />
                         </div>
                         <div class="w-[45%]">
                             <BreezeLabel for="ip" value="Votre IP" />
                             <BreezeInput v-model="form.ip" id="ip" type="text" class="mt-1 block w-full" required
                                 autocomplete="Votre IP" />
-                            <BreezeInputError class="mt-2" />
+                            <BreezeInputError class="mt-2" :message="form.errors.ip" />
                         </div>
                     </div>
                     <div class="mt-12 text-right">

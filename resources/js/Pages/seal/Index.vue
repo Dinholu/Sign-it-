@@ -4,7 +4,7 @@
     <BreezeAuthenticatedLayout class="">
         <template #header>
             <div>
-                <h2 class="font-semibold text-xl text-[#344D59] leading-tight ">
+                <h2 class="font-semibold text-2xl text-[#344D59] leading-tight ">
                     Vos documents
                 </h2>
                 <BreezeInput id="searchbar" type="text" class="mt-5 w-full block rounded-xl"

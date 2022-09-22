@@ -72,7 +72,7 @@ class MeetingController extends Controller
             'user_id' => $admin->id,
         ];
         $data = Participant::create($admindata);
-        return redirect()->route('index')->with('message', 'La Réunion a été créée avec succès');
+        return redirect()->route('index')->with('message', 'La réunion a été créée avec succès');
     }
 
     /**
@@ -100,7 +100,6 @@ class MeetingController extends Controller
             }
         }
 
-
         return Inertia::render('meeting/Show', [
             'meeting' => $meeting,
         ]);
@@ -114,9 +113,13 @@ class MeetingController extends Controller
      */
     public function edit(Meeting $meeting)
     {
-        return Inertia::render('meeting/Edit', [
-            'meeting' => $meeting,
-        ]);
+        if ($meeting->statut == 'close') {
+            return redirect()->route('index')->with('message', 'Vous ne pouvez pas modifier une réunion terminée');
+        } else {
+            return Inertia::render('meeting/Edit', [
+                'meeting' => $meeting,
+            ]);
+        }
     }
 
     /**
@@ -188,17 +191,21 @@ class MeetingController extends Controller
 
     public function update(Request $request, Meeting $meeting)
     {
-        $attributes = request()->validate([
-            'title' => 'required|string|max:45',
-            'description' => 'required|string|max:255',
-            'place' => 'required|string|max:255',
-            'date' => 'required',
-            'closing' => 'required',
-            'privilege' => 'required|string',
-        ]);
-        $meeting->update($attributes);
-        return
-            redirect()->route('index')->with('message', 'La réunion a été modifiée');;
+        if ($meeting->statut == 'close') {
+            return redirect()->route('index')->with('message', 'Vous ne pouvez pas modifier une réunion terminée');
+        } else {
+            $attributes = request()->validate([
+                'title' => 'required|string|max:45',
+                'description' => 'required|string|max:255',
+                'place' => 'required|string|max:255',
+                'date' => 'required',
+                'closing' => 'required',
+                'privilege' => 'required|string',
+            ]);
+            $meeting->update($attributes);
+            return
+                redirect()->route('index')->with('message', 'La réunion a été modifiée');
+        }
     }
 
     /**
@@ -211,5 +218,20 @@ class MeetingController extends Controller
     {
         $meeting->delete();
         return back();
+    }
+
+    public function editparticipant(Meeting $meeting)
+    {
+        if ($meeting->statut == 'close') {
+            return redirect()->route('index')->with('message', 'Vous ne pouvez pas modifier une réunion terminée');
+        } else {
+
+            $participants = $meeting->participant;
+
+            return Inertia::render('meeting/editParticipant', [
+                'participants' => $participants,
+                'meeting' => $meeting,
+            ]);
+        }
     }
 }

@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
 
             $meetings = Meeting::where('statut', 'open')->get();
             foreach ($meetings as $meeting) {
-                if ($meeting->closing < $meeting->date) {
+                if ($meeting->closing < now()) {
                     $meeting->statut = 'close';
                     $meeting->save();
 

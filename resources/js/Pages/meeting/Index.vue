@@ -5,7 +5,7 @@
 
     <BreezeAuthenticatedLayout class="">
         <template #header>
-            <h2 class="font-semibold text-xl text-[#344D59] leading-tight ">
+            <h2 class="font-semibold text-2xl text-[#344D59] leading-tight ">
                 Liste de vos réunions
             </h2>
             <BreezeInput id="searchbar" v-model="searchbar" type="text" class="mt-5 w-full block rounded-xl"

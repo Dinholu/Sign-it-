@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 
 defineProps(['modelValue']);
 
+
 defineEmits(['update:modelValue']);
 
 const input = ref(null);
@@ -15,5 +16,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <input class="border-gray-300 focus:border-[#137C8B] focus:ring focus:ring-[#137C8B] focus:ring-opacity-50 rounded-md shadow-sm" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" ref="input">
+    <input
+        class="border-gray-300 focus:border-[#137C8B] focus:ring focus:ring-[#137C8B] focus:ring-opacity-50 rounded-md shadow-sm"
+        :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" ref="input">
 </template>

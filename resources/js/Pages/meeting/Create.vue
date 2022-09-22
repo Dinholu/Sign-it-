@@ -3,7 +3,7 @@
     <Head title="Créer une Réunion" />
     <BreezeAuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-[#344D59] leading-tight">
+            <h2 class="font-semibold text-2xl text-[#344D59] leading-tight">
                 Créer une réunion
             </h2>
         </template>
@@ -14,25 +14,26 @@
                     <BreezeLabel for="title" value="Titre" />
                     <BreezeInput v-model="form.title" @change="slugcreate" id="title" type="text"
                         class="mt-1 block w-full" required autofocus autocomplete="title" />
-                    <BreezeInputError class="mt-2" />
+                    <BreezeInputError class="mt-2" :message="form.errors.title" />
                 </div>
                 <div class="mt-4">
                     <BreezeLabel for="description" value="Description" />
-                    <BreezeInput v-model="form.description" id="description" type="text" class="mt-1 block w-full"
+                    <BreezetextArea v-model="form.description" id="description" type="text" class="mt-1 block w-full "
                         required autocomplete="Votre description" />
-                    <BreezeInputError class="mt-2" />
+                    <BreezeInputError class="mt-2" :message="form.errors.description" />
                 </div>
                 <div class="mt-4">
                     <BreezeLabel for="place" value="Lieu" />
                     <BreezeInput v-model="form.place" id="place" type="text" class="mt-1 block w-full" required
                         autocomplete="Lieu" />
-                    <BreezeInputError class="mt-2" />
+                    <BreezeInputError class="mt-2" :message="form.errors.place" />
                 </div>
                 <div class="mt-4 flex flex-row w-full justify-between">
                     <div class="w-[45%]">
                         <BreezeLabel for="date" value="Date de la réunion" />
                         <BreezeInput v-model="form.date" id="date" type="datetime-local" @change="closingcreate"
                             class="mt-1 block w-full" required autocomplete="DateMeeting" />
+                        <BreezeInputError class="mt-2" :message="form.errors.date" />
 
 
                     </div>
@@ -44,7 +45,7 @@
                             <option value="public">Public</option>
                             <option value="private">Privée</option>
                         </select>
-                        <BreezeInputError class="mt-2" />
+                        <BreezeInputError class="mt-2" :message="form.errors.privilege" />
                     </div>
                 </div>
 
@@ -65,6 +66,7 @@ import BreezeButton from '@/Components/Button.vue';
 import BreezeCheckbox from '@/Components/Checkbox.vue';
 import BreezeInputError from '@/Components/InputError.vue';
 import BreezeLabel from '@/Components/Label.vue';
+import BreezetextArea from '@/Components/textArea.vue';
 
 
 export default {
@@ -77,6 +79,7 @@ export default {
         BreezeCheckbox,
         BreezeInputError,
         BreezeLabel,
+        BreezetextArea
     },
     data() {
         return {
